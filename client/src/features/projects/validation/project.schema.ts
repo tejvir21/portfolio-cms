@@ -33,6 +33,8 @@ export const projectSchema = z.object({
 
   featured: z.boolean(),
 
+  views: z.number().optional(),
+
   imageUrl: z.string().optional(),
 
   imageKey: z.string().optional(),

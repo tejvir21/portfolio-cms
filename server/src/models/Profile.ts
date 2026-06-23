@@ -9,6 +9,14 @@ export interface IProfile extends Document {
   email: string;
   phone?: string;
 
+  headline: string;
+
+  isOpenToWork: boolean;
+
+  yearsExperience: string;
+
+  education: string;
+
   github: string;
   linkedin: string;
   leetcode?: string;
@@ -27,6 +35,14 @@ const profileSchema = new Schema<IProfile>(
     role: { type: String, required: true },
 
     bio: { type: String, required: true },
+
+    headline: { type: String, default: "" },
+
+    isOpenToWork: { type: Boolean, default: false },
+
+    yearsExperience: { type: String, default: "" },
+
+    education: { type: String, default: "" },
 
     location: { type: String, required: true },
 

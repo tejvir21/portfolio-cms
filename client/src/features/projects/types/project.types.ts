@@ -29,6 +29,8 @@ export interface Project {
 
   featured: boolean;
 
+  views: number;
+
   problemStatement: string;
   architecture: string;
   challenges: string;

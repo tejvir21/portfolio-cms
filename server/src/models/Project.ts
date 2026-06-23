@@ -31,6 +31,8 @@ export interface IProject extends Document {
 
   featured: boolean;
 
+  views: number;
+
   problemStatement: string;
   architecture: string;
   challenges: string;
@@ -114,6 +116,11 @@ const projectSchema = new Schema<IProject>(
     featured: {
       type: Boolean,
       default: false,
+    },
+
+    views: {
+      type: Number,
+      default: 0,
     },
 
     problemStatement: {

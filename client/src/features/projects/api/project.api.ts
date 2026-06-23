@@ -41,8 +41,16 @@ export interface CreateProjectInput {
   featured?: boolean;
 }
 
+// create project
 export const createProject = async (data: CreateProjectInput) => {
   const response = await api.post("/projects", data);
 
   return response.data;
+};
+
+// increment project views
+export const incrementProjectViews = async (slug: string) => {
+  const response = await api.patch(`/projects/${slug}/view`);
+
+  return response.data.data;
 };

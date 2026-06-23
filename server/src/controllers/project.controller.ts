@@ -68,3 +68,32 @@ export const deleteProject = asyncHandler(
     res.status(200).json(new ApiResponse(true, "Project deleted"));
   },
 );
+
+// Increment Project Views
+export const incrementProjectViews = asyncHandler(
+  async (req: Request, res: Response) => {
+    const project = await Project.findOneAndUpdate(
+      {
+        slug: req.params.slug,
+      },
+      {
+        $inc: {
+          views: 1,
+        },
+      },
+      {
+        new: true,
+      },
+    );
+
+    if (!project) {
+      throw new ApiError(404, "Project not found");
+    }
+
+    res.status(200).json(
+      new ApiResponse(true, "View count updated", {
+        views: project.views,
+      }),
+    );
+  },
+);

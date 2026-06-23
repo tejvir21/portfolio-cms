@@ -6,6 +6,7 @@ import {
   getProjectBySlug,
   updateProject,
   deleteProject,
+  incrementProjectViews,
 } from "../controllers/project.controller";
 
 import { protect } from "../middleware/auth.middleware";
@@ -15,6 +16,8 @@ const router = Router();
 router.get("/", getProjects);
 
 router.get("/:slug", getProjectBySlug);
+
+router.patch("/:slug/view", incrementProjectViews);
 
 router.post("/", protect, createProject);
 

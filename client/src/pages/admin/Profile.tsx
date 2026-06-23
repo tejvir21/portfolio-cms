@@ -20,6 +20,13 @@ export default function Profile() {
     role: "",
     email: "",
     phone: "",
+    headline: "",
+
+    isOpenToWork: false,
+
+    yearsExperience: "",
+
+    education: "",
     location: "",
     github: "",
     linkedin: "",
@@ -40,6 +47,10 @@ export default function Profile() {
       role: data.role || "",
       email: data.email || "",
       phone: data.phone || "",
+      headline: data.headline || "",
+      isOpenToWork: data.isOpenToWork || false,
+      yearsExperience: data.yearsExperience || "",
+      education: data.education || "",
       location: data.location || "",
       github: data.github || "",
       linkedin: data.linkedin || "",
@@ -246,6 +257,70 @@ export default function Profile() {
             <p className={hintClass}>Optional social link.</p>
           </div>
         </div>
+
+        {/* Headline */}
+
+        <div className="md:col-span-2">
+          <input
+            placeholder="Headline"
+            value={formData.headline}
+            onChange={(e) => updateField("headline", e.target.value)}
+            className={`${inputClass} w-full`}
+          />
+
+          <p className={hintClass}>Example: React • TypeScript • Node.js</p>
+        </div>
+
+        <div className="grid grid-cols-2 gap-4">
+          {/* Years Experience */}
+          <div>
+            <input
+              placeholder="Years Experience"
+              value={formData.yearsExperience}
+              onChange={(e) => updateField("yearsExperience", e.target.value)}
+              className={`${inputClass} w-full`}
+            />
+
+            <p className={hintClass}>Example: 1+</p>
+          </div>
+          {/* Education */}
+          <div>
+            <input
+              placeholder="Education"
+              value={formData.education}
+              onChange={(e) => updateField("education", e.target.value)}
+              className={`${inputClass} w-full`}
+            />
+
+            <p className={hintClass}>Example: B.Tech CSE 2025</p>
+          </div>
+        </div>
+
+        {/* Availability */}
+
+        <div className="md:col-span-2">
+          <label className="flex items-center gap-3">
+            <input
+              type="checkbox"
+              checked={formData.isOpenToWork}
+              onChange={(e) =>
+                setFormData((current) => ({
+                  ...current,
+                  isOpenToWork: e.target.checked,
+                }))
+              }
+              className="h-4 w-4"
+            />
+
+            <span>Open To Opportunities</span>
+          </label>
+
+          <p className={hintClass}>
+            Shows green availability badge on hero section.
+          </p>
+        </div>
+
+        {/* Bio */}
 
         <div>
           <textarea

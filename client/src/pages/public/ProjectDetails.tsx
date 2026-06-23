@@ -18,6 +18,9 @@ import { Helmet } from "react-helmet-async";
 
 import Zoom from "react-medium-image-zoom";
 import "react-medium-image-zoom/dist/styles.css";
+import { useProjectView } from "@/features/projects/hooks/useProjectView";
+
+import { FiEye } from "react-icons/fi";
 
 export default function ProjectDetails() {
   useEffect(() => {
@@ -26,9 +29,17 @@ export default function ProjectDetails() {
 
   const { slug } = useParams();
 
+  useEffect(() => {
+    if (!slug) return;
+
+    viewMutation.mutate(slug);
+  }, [slug]);
+
   const [showArchitecture, setShowArchitecture] = useState(false);
 
   const { data: projects = [] } = useProjects();
+
+  const viewMutation = useProjectView();
 
   const { data: project, isLoading } = useProject(slug || "");
 
@@ -146,7 +157,7 @@ export default function ProjectDetails() {
 
       {/* HERO */}
 
-      <section className="mx-auto max-w-7xl px-6 py-20">
+      <section className="mx-auto max-w-7xl px-6 py-20 pt-10">
         <div className="grid gap-12 lg:grid-cols-2 lg:items-center">
           {/* LEFT */}
 
@@ -172,6 +183,13 @@ export default function ProjectDetails() {
             {/* Stats */}
 
             <div className="mb-8 flex flex-wrap gap-3 text-sm text-slate-400">
+              <div className="flex items-center gap-2">
+                <FiEye />
+                {project.views ?? 0} Views
+              </div>
+
+              <span>•</span>
+
               <span>Role: {project.role}</span>
 
               <span>•</span>
