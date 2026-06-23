@@ -1,25 +1,28 @@
 {
   "compilerOptions": {
     "target": "ES2022",
-    "module": "CommonJS",
+    // "module": "CommonJS",
     "rootDir": "./src",
     "outDir": "./dist",
 
-    "strict": true,
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext"
 
-    "esModuleInterop": true,
+    // "strict": true,
 
-    "skipLibCheck": true,
+    // "esModuleInterop": true,
 
-    "forceConsistentCasingInFileNames": true,
+    // "skipLibCheck": true,
 
-    "moduleResolution": "node",
+    // "forceConsistentCasingInFileNames": true,
 
-    "ignoreDeprecations": "6.0",
+    // "moduleResolution": "node",
 
-    "resolveJsonModule": true,
+    // "ignoreDeprecations": "6.0",
 
-    "typeRoots": ["./node_modules/@types", "./src/types"]
+    // "resolveJsonModule": true,
+
+    // "typeRoots": ["./node_modules/@types", "./src/types"]
   },
 
   "include": ["src"]
