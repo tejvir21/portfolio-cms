@@ -21,17 +21,6 @@ import { errorMiddleware } from "../src/middleware/error.middleware";
 
 const app = express();
 
-let isConnected = false;
-
-export async function handler(req: any, res: any) {
-  if (!isConnected) {
-    await connectDB();
-    isConnected = true;
-  }
-
-  return app(req, res);
-}
-
 app.use(
   cors({
     origin: true,
@@ -72,4 +61,25 @@ app.use("/api/settings", settingRoutes);
 
 app.use(errorMiddleware);
 
-export default app;
+let isConnected = false;
+
+export default async (req: any, res: any) => {
+  try {
+    if (!isConnected) {
+      await connectDB();
+      isConnected = true;
+      console.log("MongoDB connected");
+    }
+
+    return app(req, res);
+  } catch (error) {
+    console.error(error);
+
+    return res.status(500).json({
+      success: false,
+      message: "Database connection failed",
+    });
+  }
+};
+
+// export default app;
