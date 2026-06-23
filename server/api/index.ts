@@ -15,9 +15,22 @@ import uploadRoutes from "../src/routes/upload.routes";
 import dashboardRoutes from "../src/routes/dashboard.routes";
 import settingRoutes from "../src/routes/setting.routes";
 
+import { connectDB } from "../src/config/db";
+
 import { errorMiddleware } from "../src/middleware/error.middleware";
 
 const app = express();
+
+let isConnected = false;
+
+export async function handler(req: any, res: any) {
+  if (!isConnected) {
+    await connectDB();
+    isConnected = true;
+  }
+
+  return app(req, res);
+}
 
 app.use(
   cors({
