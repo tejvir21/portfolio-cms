@@ -37,7 +37,8 @@ import { Request, Response } from "express";
 import { r2 } from "../config/r2";
 import { DeleteObjectCommand, PutObjectCommand } from "@aws-sdk/client-s3";
 
-import { v4 as uuid } from "uuid";
+// import { v4 as uuid } from "uuid";
+import { randomUUID } from "crypto";
 
 export const uploadFile = async (req: Request, res: Response) => {
   try {
@@ -50,7 +51,8 @@ export const uploadFile = async (req: Request, res: Response) => {
 
     const extension = req.file.originalname.split(".").pop();
 
-    const fileName = `${uuid()}.${extension}`;
+    // const fileName = `${uuid()}.${extension}`;
+    const fileName = `${randomUUID()}.${extension}`;
 
     const folder = req.query.folder || "misc";
 

@@ -6,23 +6,23 @@
     "outDir": "./dist",
 
     "module": "NodeNext",
-    "moduleResolution": "NodeNext"
+    "moduleResolution": "NodeNext",
 
-    // "strict": true,
+    "strict": true,
 
-    // "esModuleInterop": true,
+    "esModuleInterop": true,
 
-    // "skipLibCheck": true,
+    "skipLibCheck": true,
 
-    // "forceConsistentCasingInFileNames": true,
+    "forceConsistentCasingInFileNames": true,
 
     // "moduleResolution": "node",
 
-    // "ignoreDeprecations": "6.0",
+    "ignoreDeprecations": "6.0",
 
-    // "resolveJsonModule": true,
+    "resolveJsonModule": true,
 
-    // "typeRoots": ["./node_modules/@types", "./src/types"]
+    "typeRoots": ["./node_modules/@types", "./src/types"]
   },
 
   "include": ["src"]
