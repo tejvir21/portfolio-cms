@@ -16,6 +16,9 @@ import { useProjects } from "@/features/projects/hooks/useProjects";
 import ProjectCard from "@/components/cards/ProjectCard";
 import { Helmet } from "react-helmet-async";
 
+import Zoom from "react-medium-image-zoom";
+import "react-medium-image-zoom/dist/styles.css";
+
 export default function ProjectDetails() {
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -29,13 +32,29 @@ export default function ProjectDetails() {
 
   const { data: project, isLoading } = useProject(slug || "");
 
-  const currentIndex = projects.findIndex(
+  const sortedProjects = [...projects].sort((a, b) => {
+    if (a.featured !== b.featured) {
+      return a.featured ? -1 : 1;
+    }
+
+    return (a.displayOrder ?? 999) - (b.displayOrder ?? 999);
+  });
+
+  //   const currentIndex = projects.findIndex(
+  //     (p: any) => p && p?.slug === project?.slug,
+  //   );
+
+  const currentIndex = sortedProjects.findIndex(
     (p: any) => p && p?.slug === project?.slug,
   );
 
-  const previous = projects[currentIndex - 1];
+  //   const previous = projects[currentIndex - 1];
 
-  const next = projects[currentIndex + 1];
+  //   const next = projects[currentIndex + 1];
+
+  const previous = sortedProjects[currentIndex - 1];
+
+  const next = sortedProjects[currentIndex + 1];
 
   if (isLoading) {
     return <div className="mx-auto max-w-7xl px-6 py-20">Loading...</div>;
@@ -51,7 +70,13 @@ export default function ProjectDetails() {
     .split(/\n(?=\d+\.)/)
     .filter(Boolean);
 
-  const relatedProjects = projects
+  //   const relatedProjects = projects
+  //     .filter(
+  //       (p: any) => p.category === project.category && p._id !== project._id,
+  //     )
+  //     .slice(0, 3);
+
+  const relatedProjects = sortedProjects
     .filter(
       (p: any) => p.category === project.category && p._id !== project._id,
     )
@@ -144,6 +169,20 @@ export default function ProjectDetails() {
               {project.shortDescription}
             </p>
 
+            {/* Stats */}
+
+            <div className="mb-8 flex flex-wrap gap-3 text-sm text-slate-400">
+              <span>Role: {project.role}</span>
+
+              <span>•</span>
+
+              <span>{project.technologies.length} Technologies</span>
+
+              <span>•</span>
+
+              <span>{new Date(project.updatedAt).toLocaleDateString()}</span>
+            </div>
+
             {/* Technologies */}
 
             {/* <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4"> */}
@@ -233,11 +272,13 @@ hover:border-cyan-500/30
           <div>
             <div className="overflow-hidden rounded-3xl border border-slate-800 bg-slate-900">
               {project.imageUrl ? (
-                <img
-                  src={project.imageUrl}
-                  alt={project.title}
-                  className="h-full w-full object-cover"
-                />
+                <Zoom>
+                  <img
+                    src={project.imageUrl}
+                    alt={project.title}
+                    className="h-full w-full object-cover"
+                  />
+                </Zoom>
               ) : (
                 <div className="flex h-[400px] items-center justify-center text-slate-500">
                   Project Screenshot
@@ -356,7 +397,7 @@ hover:border-cyan-500/30
         >
           <span>View Detailed Architecture</span>
 
-          <ChevronDown />
+          <ChevronDown className={showArchitecture ? "rotate-180" : ""} />
         </button>
 
         {showArchitecture && (
@@ -374,6 +415,7 @@ hover:border-cyan-500/30
           </pre>
         )}
       </section>
+
       {/* CHALLENGES */}
 
       <section className="mx-auto max-w-7xl px-6 pb-20">
@@ -471,18 +513,20 @@ hover:border-cyan-500/30
               spaceBetween={20}
               slidesPerView={1}
             >
-              {project.gallery.map((image: string, index: number) => (
+              {project.gallery.map((image: any, index: number) => (
                 <SwiperSlide key={index}>
-                  <img
-                    src={image}
-                    alt={`Screenshot ${index + 1}`}
-                    className="
-                h-[500px]
-                w-full
-                rounded-2xl
-                object-cover
-                "
-                  />
+                  <Zoom>
+                    <img
+                      src={image.url}
+                      alt={`Screenshot ${index + 1}`}
+                      className="
+      h-[500px]
+      w-full
+      rounded-2xl
+      object-cover
+      "
+                    />
+                  </Zoom>
                 </SwiperSlide>
               ))}
             </Swiper>
@@ -492,15 +536,17 @@ hover:border-cyan-500/30
 
       {/* Related Projects */}
 
-      <section className="mx-auto max-w-7xl px-6 pb-24">
-        <h2 className="mb-8 text-3xl font-bold">Related Projects</h2>
+      {relatedProjects.length > 0 && (
+        <section className="mx-auto max-w-7xl px-6 pb-24">
+          <h2 className="mb-8 text-3xl font-bold">Related Projects</h2>
 
-        <div className="grid gap-6 md:grid-cols-3">
-          {relatedProjects.map((item: any) => (
-            <ProjectCard key={item._id} project={item} />
-          ))}
-        </div>
-      </section>
+          <div className="grid gap-6 md:grid-cols-3">
+            {relatedProjects.map((item: any) => (
+              <ProjectCard key={item._id} project={item} />
+            ))}
+          </div>
+        </section>
+      )}
 
       {/* Navigation */}
 

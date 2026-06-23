@@ -24,7 +24,7 @@ export interface CreateProjectInput {
   category: string;
   status: "completed" | "in-progress";
 
-  gallery: string[];
+  gallery: { url: string; key: string }[];
 
   problemStatement: string;
   architecture: string;
@@ -32,6 +32,7 @@ export interface CreateProjectInput {
   learnings: string;
 
   imageUrl?: string;
+  imageKey?: string;
 
   githubUrl?: string;
 

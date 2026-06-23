@@ -32,10 +32,18 @@ const splitCsv = (value?: string) =>
     .map((item) => item.trim())
     .filter(Boolean) ?? [];
 
+// const buildProjectPayload = (values: ProjectFormValues) => ({
+//   ...values,
+//   technologies: splitCsv(values.technologies),
+//   gallery: splitCsv(values.gallery),
+// });
+
 const buildProjectPayload = (values: ProjectFormValues) => ({
   ...values,
+
   technologies: splitCsv(values.technologies),
-  gallery: splitCsv(values.gallery),
+
+  gallery: values.gallery ?? [],
 });
 
 export default function Projects() {
