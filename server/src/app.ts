@@ -17,15 +17,24 @@ import { errorMiddleware } from "./middleware/error.middleware";
 
 const app = express();
 
+const clients = process.env.CLIENTS?.split(", ") || [];
+
 app.use(
   cors({
-    origin: true,
+    origin: ["http://localhost:5173", ...clients],
     credentials: true,
   }),
 );
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+app.get("/", (_, res) => {
+  res.json({
+    success: true,
+    message: "API Running",
+  });
+});
 
 app.get("/api/health", (_req, res) => {
   res.status(200).json({

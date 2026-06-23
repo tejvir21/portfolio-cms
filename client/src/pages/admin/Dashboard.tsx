@@ -30,7 +30,7 @@ export default function Dashboard() {
 
           {recentProjects.length ? (
             <div className="space-y-3">
-              {recentProjects.map((project) => (
+              {recentProjects.map((project: any) => (
                 <p key={project._id} className="text-slate-400">
                   {project.title}
                 </p>

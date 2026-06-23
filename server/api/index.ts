@@ -3,19 +3,19 @@
 import express from "express";
 import cors from "cors";
 
-import authRoutes from "./routes/auth.routes";
-import projectRoutes from "./routes/project.routes";
-import skillRoutes from "./routes/skill.routes";
-import experienceRoutes from "./routes/experience.routes";
-import achievementRoutes from "./routes/achievement.routes";
-import certificateRoutes from "./routes/certificate.routes";
-import contactRoutes from "./routes/contact.routes";
-import profileRoutes from "./routes/profile.routes";
-import uploadRoutes from "./routes/upload.routes";
-import dashboardRoutes from "./routes/dashboard.routes";
-import settingRoutes from "./routes/setting.routes";
+import authRoutes from "../src/routes/auth.routes";
+import projectRoutes from "../src/routes/project.routes";
+import skillRoutes from "../src/routes/skill.routes";
+import experienceRoutes from "../src/routes/experience.routes";
+import achievementRoutes from "../src/routes/achievement.routes";
+import certificateRoutes from "../src/routes/certificate.routes";
+import contactRoutes from "../src/routes/contact.routes";
+import profileRoutes from "../src/routes/profile.routes";
+import uploadRoutes from "../src/routes/upload.routes";
+import dashboardRoutes from "../src/routes/dashboard.routes";
+import settingRoutes from "../src/routes/setting.routes";
 
-import { errorMiddleware } from "./middleware/error.middleware";
+import { errorMiddleware } from "../src/middleware/error.middleware";
 
 const app = express();
 
