@@ -298,7 +298,7 @@ hover:border-cyan-500/30
                   />
                 </Zoom>
               ) : (
-                <div className="flex h-[400px] items-center justify-center text-slate-500">
+                <div className="flex h-100 items-center justify-center text-slate-500">
                   Project Screenshot
                 </div>
               )}
@@ -538,7 +538,7 @@ hover:border-cyan-500/30
                       src={image.url}
                       alt={`Screenshot ${index + 1}`}
                       className="
-      h-[500px]
+      h-125
       w-full
       rounded-2xl
       object-cover

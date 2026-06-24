@@ -97,7 +97,7 @@ export default function ProjectCard({ project }: Props) {
   return (
     <article className="group overflow-hidden rounded-2xl border border-slate-800 bg-slate-900 shadow-[0_0_35px_rgba(34,211,238,0.06)] transition hover:-translate-y-1 hover:border-cyan-400/70 hover:shadow-[0_0_45px_rgba(34,211,238,0.16)]">
       {project.imageUrl && (
-        <div className="aspect-[16/9] overflow-hidden bg-slate-950">
+        <div className="aspect-video overflow-hidden bg-slate-950">
           <img
             src={project.imageUrl}
             alt={project.title}

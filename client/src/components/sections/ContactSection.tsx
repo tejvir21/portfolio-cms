@@ -108,7 +108,7 @@ export default function ContactSection() {
           <button
             disabled={createMutation.isPending}
             type="submit"
-            className="w-full rounded-xl bg-gradient-to-r from-cyan-400 to-indigo-500 px-5 py-3 font-semibold text-white disabled:opacity-60"
+            className="w-full rounded-xl bg-linear-to-r from-cyan-400 to-indigo-500 px-5 py-3 font-semibold text-white disabled:opacity-60"
           >
             {createMutation.isPending ? "Sending..." : "Send Message"}
           </button>

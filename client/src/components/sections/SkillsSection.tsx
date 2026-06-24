@@ -122,7 +122,7 @@ export default function SkillsSection() {
 
                     <div className="h-3 overflow-hidden rounded-full bg-slate-800">
                       <div
-                        className="h-full rounded-full bg-gradient-to-r from-cyan-400 to-indigo-500"
+                        className="h-full rounded-full bg-linear-to-r from-cyan-400 to-indigo-500"
                         style={{ width: `${skill.proficiency}%` }}
                       />
                     </div>
