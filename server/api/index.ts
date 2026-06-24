@@ -15,6 +15,8 @@ import uploadRoutes from "../src/routes/upload.routes";
 import dashboardRoutes from "../src/routes/dashboard.routes";
 import settingRoutes from "../src/routes/setting.routes";
 
+import certificateCompanyRoutes from "../src/routes/certificateCompany.routes";
+
 import { connectDB } from "../src/config/db";
 
 import { errorMiddleware } from "../src/middleware/error.middleware";
@@ -50,6 +52,8 @@ app.use("/api/experience", experienceRoutes);
 app.use("/api/achievements", achievementRoutes);
 
 app.use("/api/certificates", certificateRoutes);
+
+app.use("/api/certificate-companies", certificateCompanyRoutes);
 
 app.use("/api/contact", contactRoutes);
 

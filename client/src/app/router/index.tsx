@@ -16,6 +16,7 @@ import Certificates from "../../pages/admin/Certificates";
 import Messages from "../../pages/admin/Messages";
 import Settings from "../../pages/admin/Settings";
 import ProjectDetails from "@/pages/public/ProjectDetails";
+import CertificateCompanies from "@/pages/admin/CertificateCompanies";
 
 export const router = createBrowserRouter([
   {
@@ -80,6 +81,11 @@ export const router = createBrowserRouter([
       {
         path: "certificates",
         element: <Certificates />,
+      },
+
+      {
+        path: "certificate-companies",
+        element: <CertificateCompanies />,
       },
 
       {

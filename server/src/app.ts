@@ -13,13 +13,13 @@ import uploadRoutes from "./routes/upload.routes";
 import dashboardRoutes from "./routes/dashboard.routes";
 import settingRoutes from "./routes/setting.routes";
 
+import certificateCompanyRoutes from "./routes/certificateCompany.routes";
+
 import { errorMiddleware } from "./middleware/error.middleware";
 
 const app = express();
 
 const clients = process.env.CLIENTS?.replace(" ", "")?.split(",") || [];
-
-console.log(clients);
 
 app.use(
   cors({
@@ -57,6 +57,8 @@ app.use("/api/experience", experienceRoutes);
 app.use("/api/achievements", achievementRoutes);
 
 app.use("/api/certificates", certificateRoutes);
+
+app.use("/api/certificate-companies", certificateCompanyRoutes);
 
 app.use("/api/contact", contactRoutes);
 

@@ -127,6 +127,7 @@ const ALLOWED_FOLDERS = [
   "resume",
   "projects",
   "certificates",
+  "certificate-companies",
   "achievements",
   "misc",
 ];
@@ -154,7 +155,6 @@ export const uploadFile = async (req: Request, res: Response) => {
       .from(BUCKET)
       .upload(key, req.file.buffer, {
         contentType: req.file.mimetype,
-
         upsert: false,
       });
 
@@ -173,12 +173,9 @@ export const uploadFile = async (req: Request, res: Response) => {
 
     return res.status(200).json({
       success: true,
-
       message: "File uploaded successfully",
-
       data: {
         url: publicUrlData.publicUrl,
-
         key,
       },
     });
@@ -187,9 +184,22 @@ export const uploadFile = async (req: Request, res: Response) => {
 
     return res.status(500).json({
       success: false,
-
       message: "Upload failed",
     });
+  }
+};
+
+/**
+ * Reusable helper for deleting a file from Supabase storage
+ * Can be used inside other controllers/services.
+ */
+export const removeFileFromStorage = async (key?: string) => {
+  if (!key) return;
+
+  const { error } = await supabase.storage.from(BUCKET).remove([key]);
+
+  if (error) {
+    throw error;
   }
 };
 
@@ -204,16 +214,7 @@ export const deleteFile = async (req: Request, res: Response) => {
       });
     }
 
-    const { error } = await supabase.storage.from(BUCKET).remove([key]);
-
-    if (error) {
-      console.error(error);
-
-      return res.status(500).json({
-        success: false,
-        message: "Failed to delete file",
-      });
-    }
+    await removeFileFromStorage(key);
 
     return res.status(200).json({
       success: true,
@@ -228,3 +229,116 @@ export const deleteFile = async (req: Request, res: Response) => {
     });
   }
 };
+
+// import { randomUUID } from "crypto";
+
+// import { supabase } from "../config/supabase";
+
+// const BUCKET = process.env.SUPABASE_BUCKET_NAME!;
+
+// const ALLOWED_FOLDERS = [
+//   "profile",
+//   "resume",
+//   "projects",
+//   "certificates",
+//   "achievements",
+//   "misc",
+// ];
+
+// export const uploadFile = async (req: Request, res: Response) => {
+//   try {
+//     if (!req.file) {
+//       return res.status(400).json({
+//         success: false,
+//         message: "No file uploaded",
+//       });
+//     }
+
+//     const requestedFolder = String(req.query.folder || "misc");
+
+//     const folder = ALLOWED_FOLDERS.includes(requestedFolder)
+//       ? requestedFolder
+//       : "misc";
+
+//     const extension = req.file.originalname.split(".").pop();
+
+//     const key = `${folder}/${randomUUID()}.${extension}`;
+
+//     const { error } = await supabase.storage
+//       .from(BUCKET)
+//       .upload(key, req.file.buffer, {
+//         contentType: req.file.mimetype,
+
+//         upsert: false,
+//       });
+
+//     if (error) {
+//       console.error(error);
+
+//       return res.status(500).json({
+//         success: false,
+//         message: "Failed to upload file",
+//       });
+//     }
+
+//     const { data: publicUrlData } = supabase.storage
+//       .from(BUCKET)
+//       .getPublicUrl(key);
+
+//     return res.status(200).json({
+//       success: true,
+
+//       message: "File uploaded successfully",
+
+//       data: {
+//         url: publicUrlData.publicUrl,
+
+//         key,
+//       },
+//     });
+//   } catch (error) {
+//     console.error(error);
+
+//     return res.status(500).json({
+//       success: false,
+
+//       message: "Upload failed",
+//     });
+//   }
+// };
+
+// export const deleteFile = async (req: Request, res: Response) => {
+//   try {
+//     const { key } = req.body;
+
+//     if (!key) {
+//       return res.status(400).json({
+//         success: false,
+//         message: "File key is required",
+//       });
+//     }
+
+//     const { error } = await supabase.storage.from(BUCKET).remove([key]);
+
+//     if (error) {
+//       console.error(error);
+
+//       return res.status(500).json({
+//         success: false,
+//         message: "Failed to delete file",
+//       });
+//     }
+
+//     return res.status(200).json({
+//       success: true,
+//       message: "File deleted successfully",
+//     });
+//   } catch (error) {
+//     console.error(error);
+
+//     return res.status(500).json({
+//       success: false,
+//       message: "Delete failed",
+//     });
+//   }
+// };

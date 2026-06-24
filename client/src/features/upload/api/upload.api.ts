@@ -23,7 +23,7 @@ export const uploadFile = async (
   formData.append("file", file);
 
   const response = await api.post(
-    `/upload?folder=$${encodeURIComponent(folder)}`,
+    `/upload?folder=${encodeURIComponent(folder)}`,
     formData,
     {
       headers: {

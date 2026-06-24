@@ -5,6 +5,8 @@ export interface ICertificate extends Document {
 
   issuer: string;
 
+  company: string;
+
   issueDate: Date;
 
   credentialId?: string;
@@ -26,6 +28,12 @@ const certificateSchema = new Schema<ICertificate>(
     issuer: {
       type: String,
       required: true,
+    },
+
+    company: {
+      type: String,
+      default: "",
+      trim: true,
     },
 
     issueDate: {

@@ -9,6 +9,7 @@ import {
   Award,
   Mail,
   Settings,
+  Building2,
 } from "lucide-react";
 
 const menuItems = [
@@ -46,6 +47,12 @@ const menuItems = [
     label: "Certificates",
     icon: Award,
     path: "/admin/certificates",
+  },
+
+  {
+    label: "Certificate Companies",
+    icon: Building2,
+    path: "/admin/certificate-companies",
   },
   {
     label: "Messages",
