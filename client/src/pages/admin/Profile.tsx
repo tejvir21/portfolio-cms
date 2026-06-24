@@ -7,6 +7,8 @@ import { useUpdateProfile } from "../../features/profile/hooks/useUpdateProfile"
 import { useUpload } from "../../features/upload/hooks/useUpload";
 import { showError, showSuccess } from "../../utils/toast";
 
+import { useDeleteFile } from "../../features/upload/hooks/useDeleteFile";
+
 const inputClass = "rounded-xl border border-slate-700 bg-slate-900 p-3";
 const hintClass = "mt-1 text-xs text-slate-500";
 
@@ -14,6 +16,8 @@ export default function Profile() {
   const { data } = useProfile();
   const updateMutation = useUpdateProfile();
   const uploadMutation = useUpload();
+
+  const deleteMutation = useDeleteFile();
 
   const [formData, setFormData] = useState({
     name: "",
@@ -39,6 +43,9 @@ export default function Profile() {
   const [imageUrl, setImageUrl] = useState("");
   const [resumeUrl, setResumeUrl] = useState("");
 
+  const [imageKey, setImageKey] = useState("");
+  const [resumeKey, setResumeKey] = useState("");
+
   useEffect(() => {
     if (!data) return;
 
@@ -62,6 +69,9 @@ export default function Profile() {
 
     setImageUrl(data.imageUrl || data.profileImage || "");
     setResumeUrl(data.resumeUrl || "");
+
+    setImageKey(data.imageKey || "");
+    setResumeKey(data.resumeKey || "");
   }, [data]);
 
   const updateField = (key: keyof typeof formData, value: string) => {
@@ -77,9 +87,14 @@ export default function Profile() {
     updateMutation.mutate(
       {
         ...formData,
+
         imageUrl,
+        imageKey,
+
         profileImage: imageUrl,
+
         resumeUrl,
+        resumeKey,
       },
       {
         onSuccess: () => showSuccess("Profile updated successfully"),
@@ -108,15 +123,23 @@ export default function Profile() {
               accept="image/*"
               preview={imageUrl}
               onSelect={async (file) => {
-                // const result = await uploadMutation.mutateAsync(file);
+                try {
+                  if (imageKey) {
+                    await deleteMutation.mutateAsync(imageKey);
+                  }
 
-                const result = await uploadMutation.mutateAsync({
-                  file,
-                  folder: "profile",
-                });
+                  const result = await uploadMutation.mutateAsync({
+                    file,
+                    folder: "profile",
+                  });
 
-                setImageUrl(result.url);
-                showSuccess("Image uploaded successfully");
+                  setImageUrl(result.url);
+                  setImageKey(result.key);
+
+                  showSuccess("Image uploaded successfully");
+                } catch {
+                  showError("Image upload failed");
+                }
               }}
             />
           </div>
@@ -131,15 +154,23 @@ export default function Profile() {
             <FileUpload
               accept=".pdf"
               onSelect={async (file) => {
-                // const result = await uploadMutation.mutateAsync(file);
+                try {
+                  if (resumeKey) {
+                    await deleteMutation.mutateAsync(resumeKey);
+                  }
 
-                const result = await uploadMutation.mutateAsync({
-                  file,
-                  folder: "resume",
-                });
+                  const result = await uploadMutation.mutateAsync({
+                    file,
+                    folder: "resume",
+                  });
 
-                setResumeUrl(result.url);
-                showSuccess("Resume uploaded successfully");
+                  setResumeUrl(result.url);
+                  setResumeKey(result.key);
+
+                  showSuccess("Resume uploaded successfully");
+                } catch {
+                  showError("Resume upload failed");
+                }
               }}
             />
 

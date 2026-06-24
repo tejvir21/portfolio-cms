@@ -17,7 +17,9 @@ import { errorMiddleware } from "./middleware/error.middleware";
 
 const app = express();
 
-const clients = process.env.CLIENTS?.split(", ") || [];
+const clients = process.env.CLIENTS?.replace(" ", "")?.split(",") || [];
+
+console.log(clients);
 
 app.use(
   cors({

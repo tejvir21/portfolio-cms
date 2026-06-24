@@ -2,6 +2,7 @@ import { useMemo, useState } from "react";
 import { ExternalLink } from "lucide-react";
 
 import { useCertificates } from "../../features/certificates/hooks/useCertificates";
+import CardSkeleton from "../skeletons/CardSkeleton";
 
 const formatDate = (value?: string) => {
   if (!value) return "";
@@ -13,7 +14,7 @@ const formatDate = (value?: string) => {
 };
 
 export default function CertificatesSection() {
-  const { data } = useCertificates();
+  const { data, isLoading } = useCertificates();
   const [showAll, setShowAll] = useState(false);
 
   const certificates = useMemo(() => {
@@ -35,6 +36,8 @@ export default function CertificatesSection() {
   const visibleCertificates = showAll ? certificates : collapsedCertificates;
   const hasHiddenCertificates =
     certificates.length > visibleCertificates.length;
+
+  if (isLoading) return <CardSkeleton />;
 
   if (!certificates.length) return null;
 

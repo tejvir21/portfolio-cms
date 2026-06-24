@@ -2,6 +2,7 @@ import { useMemo, useState } from "react";
 import { Award, ExternalLink } from "lucide-react";
 
 import { useAchievements } from "../../features/achievements/hooks/useAchievements";
+import CardSkeleton from "../skeletons/CardSkeleton";
 
 const toPoints = (value?: string) => {
   if (!value) return [];
@@ -20,7 +21,7 @@ const toPoints = (value?: string) => {
 };
 
 export default function AchievementsSection() {
-  const { data } = useAchievements();
+  const { data, isLoading } = useAchievements();
   const [showAll, setShowAll] = useState(false);
 
   const achievements = useMemo(() => {
@@ -34,6 +35,8 @@ export default function AchievementsSection() {
   }, [data]);
 
   const visibleAchievements = showAll ? achievements : achievements.slice(0, 3);
+
+  if (isLoading) return <CardSkeleton />;
 
   if (!achievements.length) return null;
 

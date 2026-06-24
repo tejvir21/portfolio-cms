@@ -13,8 +13,10 @@ export interface Profile {
   twitter?: string;
   portfolio?: string;
   resumeUrl: string;
+  resumeKey: string;
   bio: string;
   imageUrl?: string;
+  imageKey?: string;
   profileImage?: string;
 }
 
@@ -23,13 +25,8 @@ export const getProfile = async () => {
   return response.data.data;
 };
 
-export const updateProfile = async (
-  data: Profile
-) => {
-  const response = await api.put(
-    "/profile",
-    data
-  );
+export const updateProfile = async (data: Profile) => {
+  const response = await api.put("/profile", data);
 
   return response.data.data;
 };

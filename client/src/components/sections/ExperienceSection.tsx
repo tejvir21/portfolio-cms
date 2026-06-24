@@ -1,4 +1,5 @@
 import { useExperiences } from "../../features/experience/hooks/useExperiences";
+import ExperienceSkeleton from "../skeletons/ExperienceSkeleton";
 
 const formatDate = (value?: string) => {
   if (!value) return "Present";
@@ -26,7 +27,9 @@ const toPoints = (value?: string) => {
 };
 
 export default function ExperienceSection() {
-  const { data } = useExperiences();
+  const { data, isLoading } = useExperiences();
+
+  if (isLoading) return <ExperienceSkeleton />;
 
   if (!data?.length) return null;
 

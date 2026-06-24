@@ -24,6 +24,7 @@ import { Code2, Database, Server, Wrench } from "lucide-react";
 
 import { type Skill } from "../../features/skills/types/skill.types";
 import { useSkills } from "../../features/skills/hooks/useSkills";
+import SkillsSkeleton from "../skeletons/SkillsSkeleton";
 
 const skillIconMap = {
   css: FaCss3Alt,
@@ -69,7 +70,7 @@ const getSkillIcon = (skill: Skill) => {
 };
 
 export default function SkillsSection() {
-  const { data } = useSkills();
+  const { data, isLoading } = useSkills();
 
   const skillGroups = useMemo(() => {
     return [...(data ?? [])]
@@ -83,6 +84,8 @@ export default function SkillsSection() {
         return groups;
       }, {});
   }, [data]);
+
+  if (isLoading) return <SkillsSkeleton />;
 
   if (!data?.length) return null;
 

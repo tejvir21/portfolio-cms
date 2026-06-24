@@ -2,6 +2,7 @@ import { useMemo, useState } from "react";
 import { useProjects } from "../../features/projects/hooks/useProjects";
 
 import ProjectCard from "../cards/ProjectCard";
+import ProjectsSkeleton from "../skeletons/ProjectsSkeleton";
 
 export default function ProjectsSection() {
   const { data, isLoading } = useProjects();
@@ -15,7 +16,9 @@ export default function ProjectsSection() {
     });
   }, [data]);
 
-  if (isLoading || !data?.length) return null;
+  if (isLoading) return <ProjectsSkeleton />;
+
+  if (!data?.length) return null;
 
   const featuredProjects = projects.filter((project) => project.featured);
 

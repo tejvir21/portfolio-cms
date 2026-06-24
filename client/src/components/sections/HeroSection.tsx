@@ -2,10 +2,13 @@ import SocialLinks from "../common/SocialLinks";
 import { useProfile } from "../../features/profile/hooks/useProfile";
 import { useProjects } from "../../features/projects/hooks/useProjects";
 import StatCard from "../common/StatCard";
+import HeroSkeleton from "../skeletons/HeroSkeleton";
 
 export default function HeroSection() {
-  const { data } = useProfile();
+  const { data, isLoading } = useProfile();
   const { data: projects } = useProjects();
+
+  if (isLoading) return <HeroSkeleton />;
 
   if (!data?.name && !data?.role && !data?.bio) return null;
 

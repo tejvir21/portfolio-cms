@@ -13,6 +13,7 @@ import ContactSection from "../../components/sections/ContactSection";
 import SEO from "@/lib/seo";
 import { useEffect } from "react";
 import { useSeoStore } from "@/store/seo.store";
+import PageLoader from "@/components/common/PageLoader";
 
 export default function Home() {
   const { fetchSeo, seo } = useSeoStore();
@@ -20,6 +21,8 @@ export default function Home() {
   useEffect(() => {
     fetchSeo();
   }, []);
+
+  if (!seo) return <PageLoader />;
 
   return (
     <>

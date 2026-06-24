@@ -24,8 +24,12 @@ export interface IProfile extends Document {
   portfolio?: string;
 
   imageUrl: string;
+  imageKey: string;
+
   profileImage: string;
+
   resumeUrl: string;
+  resumeKey: string;
 }
 
 const profileSchema = new Schema<IProfile>(
@@ -62,9 +66,13 @@ const profileSchema = new Schema<IProfile>(
 
     imageUrl: { type: String, default: "" },
 
+    imageKey: { type: String, default: "" },
+
     profileImage: { type: String, default: "" },
 
     resumeUrl: { type: String, default: "" },
+
+    resumeKey: { type: String, default: "" },
   },
   {
     timestamps: true,
