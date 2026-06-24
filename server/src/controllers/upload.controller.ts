@@ -126,6 +126,7 @@ const ALLOWED_FOLDERS = [
   "profile",
   "resume",
   "projects",
+  "gallery",
   "certificates",
   "certificate-companies",
   "achievements",

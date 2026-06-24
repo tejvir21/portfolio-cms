@@ -96,6 +96,8 @@ export default function ContactSection() {
           </div>
         </div>
 
+        {/* Form */}
+
         <form
           onSubmit={(event) => {
             event.preventDefault();

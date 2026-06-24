@@ -7,6 +7,7 @@ import { useExperiences } from "../../features/experience/hooks/useExperiences";
 import { useProfile } from "../../features/profile/hooks/useProfile";
 import { useProjects } from "../../features/projects/hooks/useProjects";
 import { useSkills } from "../../features/skills/hooks/useSkills";
+import { useCertificates } from "@/features/certificates/hooks/useCertificates";
 
 export default function Navbar() {
   const { data: profile } = useProfile();
@@ -14,6 +15,7 @@ export default function Navbar() {
   const { data: projects } = useProjects();
   const { data: achievements } = useAchievements();
   const { data: skills } = useSkills();
+  const { data: certificates } = useCertificates();
 
   const [mobileOpen, setMobileOpen] = useState(false);
   const location = useLocation();
@@ -50,6 +52,11 @@ export default function Navbar() {
           visible: Boolean(skills?.length),
         },
         {
+          label: "Certificates",
+          href: "#certificates",
+          visible: Boolean(certificates?.length),
+        },
+        {
           label: "Contact",
           href: "#contact",
           visible: Boolean(
@@ -77,6 +84,7 @@ export default function Navbar() {
         <Link
           to="/"
           className="inline-flex items-center gap-3 text-xl font-bold tracking-wide text-white"
+          onClick={() => window.scrollTo(0, 0)}
         >
           <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-cyan-500/30 bg-cyan-500/10 text-sm font-bold text-cyan-300 shadow-[0_0_20px_rgba(34,211,238,0.12)]">
             {initials}

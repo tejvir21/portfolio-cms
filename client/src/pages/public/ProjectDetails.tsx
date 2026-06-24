@@ -26,6 +26,7 @@ import { useProjects } from "@/features/projects/hooks/useProjects";
 import { useProjectView } from "@/features/projects/hooks/useProjectView";
 import { techIcons } from "@/constants/techIcons";
 import ProjectCard from "@/components/cards/ProjectCard";
+import PageLoader from "@/components/common/PageLoader";
 
 function SectionCard({
   title,
@@ -103,11 +104,7 @@ export default function ProjectDetails() {
       : null;
 
   if (isLoading) {
-    return (
-      <div className="mx-auto max-w-7xl px-6 py-20 text-slate-300">
-        Loading project...
-      </div>
-    );
+    return <PageLoader />;
   }
 
   if (!project) {

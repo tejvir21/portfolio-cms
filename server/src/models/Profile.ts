@@ -50,7 +50,7 @@ const profileSchema = new Schema<IProfile>(
 
     location: { type: String, required: true },
 
-    email: { type: String, required: true },
+    email: { type: String, trim: true, default: "" },
 
     phone: { type: String },
 
