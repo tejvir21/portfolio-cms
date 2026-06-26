@@ -15,7 +15,7 @@ export default function AdminLayout() {
 
         <MobileSidebar open={open} onClose={() => setOpen(false)} />
 
-        <div className="flex min-h-screen flex-1 flex-col">
+        <div className="flex min-h-screen flex-1 flex-col overflow-hidden">
           <Topbar onMenuClick={() => setOpen(true)} />
 
           <main className="flex-1 p-6 md:p-8">
