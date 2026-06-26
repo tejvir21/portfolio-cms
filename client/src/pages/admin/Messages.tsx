@@ -15,12 +15,26 @@ export default function Messages() {
   const [viewing, setViewing] = useState<ContactMessage | null>(null);
   const [deleting, setDeleting] = useState<ContactMessage | null>(null);
 
+  const [search, setSearch] = useState("");
+
   const { data, isLoading } = useContacts();
   const deleteMutation = useDeleteContact();
 
   return (
     <>
-      <PageHeader title="Messages" description="Manage contact messages." />
+      <PageHeader
+        title="Messages"
+        description="Manage contact messages."
+        action={
+          <input
+            type="text"
+            value={search}
+            className="border rounded-2xl text-white px-4 py-2 bg-gray-800"
+            placeholder="Search"
+            onChange={(e) => setSearch(e.target.value)}
+          />
+        }
+      />
 
       {isLoading ? (
         <TableSkeleton />
@@ -28,7 +42,13 @@ export default function Messages() {
         <EmptyState title="No Messages" description="No contact messages yet" />
       ) : (
         <MessageTable
-          messages={data}
+          messages={data.filter(
+            (message) =>
+              message.name.toLowerCase().includes(search.toLowerCase()) ||
+              message.email.toLowerCase().includes(search.toLowerCase()) ||
+              message.subject.toLowerCase().includes(search.toLowerCase()) ||
+              message.message.toLowerCase().includes(search.toLowerCase()),
+          )}
           onView={(message) => setViewing(message)}
           onDelete={(message) => setDeleting(message)}
         />
