@@ -24,6 +24,14 @@ import {
   SiTheweatherchannel,
   SiVercel,
   SiRender,
+  SiMongoose,
+  SiPython,
+  SiPandas,
+  SiNumpy,
+  SiScikitlearn,
+  SiStreamlit,
+  SiConvertio,
+  SiThemodelsresource,
 } from "react-icons/si";
 
 import {
@@ -31,12 +39,46 @@ import {
   TbBrandFramerMotion,
   TbIcons,
   TbBrandReact,
+  TbFileUpload,
+  TbRobot,
 } from "react-icons/tb";
 
 import { MdCatchingPokemon } from "react-icons/md";
 
 export const techIcons: Record<string, React.ElementType> = {
   React: FaReact,
+
+  "React.js": FaReact,
+
+  ReactJS: FaReact,
+
+  Python: SiPython,
+
+  Pandas: SiPandas,
+
+  Numpy: SiNumpy,
+
+  NumPy: SiNumpy,
+
+  ScikitLearn: SiScikitlearn,
+
+  "Scikit-Learn": SiScikitlearn,
+
+  "Scikit-learn": SiScikitlearn,
+
+  "scikit-learn": SiScikitlearn,
+
+  "Machine Learning": TbRobot,
+
+  ML: TbRobot,
+
+  "Model Deployment": SiThemodelsresource,
+
+  Streamlit: SiStreamlit,
+
+  Convertio: SiConvertio,
+
+  "Data Preprocessing": SiConvertio,
 
   NodeJs: FaNodeJs,
 
@@ -54,7 +96,11 @@ export const techIcons: Record<string, React.ElementType> = {
 
   ExpressJs: SiExpress,
 
+  "Express.js": SiExpress,
+
   Redux: SiRedux,
+
+  Zustand: SiRedux,
 
   NextJs: SiNextdotjs,
 
@@ -71,6 +117,8 @@ export const techIcons: Record<string, React.ElementType> = {
   "Rest API": TbApi,
 
   "Rest APIs": TbApi,
+
+  "REST APIs": TbApi,
 
   Axios: SiAxios,
 
@@ -98,9 +146,13 @@ export const techIcons: Record<string, React.ElementType> = {
 
   "File Handling": FaRegFileCode,
 
+  "file upload handling": TbFileUpload,
+
   "Socket.io": SiSocketdotio,
 
   "OpenWeatherMap API": SiTheweatherchannel,
 
   PokéAPI: MdCatchingPokemon,
+
+  Mongoose: SiMongoose,
 };

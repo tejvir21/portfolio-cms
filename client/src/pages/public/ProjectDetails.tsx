@@ -308,7 +308,9 @@ export default function ProjectDetails() {
           <InfoPill
             icon={<CalendarDays className="h-5 w-5" />}
             label="Status"
-            value={project.status}
+            value={
+              project.status?.charAt(0).toUpperCase() + project.status.slice(1)
+            }
           />
         </div>
       </section>

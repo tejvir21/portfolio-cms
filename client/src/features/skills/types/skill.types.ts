@@ -5,6 +5,8 @@ export interface Skill {
 
   category: string;
 
+  skillSequence: number;
+
   icon?: string;
 
   proficiency: number;

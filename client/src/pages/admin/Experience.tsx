@@ -61,7 +61,7 @@ export default function Experience() {
         />
       ) : (
         <ExperienceTable
-          experiences={data}
+          experiences={data?.sort((a, b) => a.displayOrder - b.displayOrder)}
           onEdit={(experience) => setEditing(experience)}
           onDelete={(experience) => setDeleting(experience)}
         />
@@ -85,6 +85,7 @@ export default function Experience() {
               },
             });
           }}
+          totalExperiences={data?.length}
         />
       </FormModal>
 

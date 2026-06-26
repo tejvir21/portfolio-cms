@@ -11,7 +11,9 @@ export const createOne = (Model: Model<any>) =>
   asyncHandler(async (req: Request, res: Response) => {
     const document = await Model.create(req.body);
 
-    await EmailService.sendContactEmails(req.body);
+    if (Model.name === "Contact") {
+      await EmailService.sendContactEmails(req.body);
+    }
 
     res
       .status(201)
@@ -45,7 +47,9 @@ export const getOne = (Model: Model<any>) =>
 export const updateOne = (Model: Model<any>) =>
   asyncHandler(async (req: Request, res: Response) => {
     const document = await Model.findByIdAndUpdate(req.params.id, req.body, {
-      new: true,
+      // new: true,
+      returnDocument: "after",
+      runValidators: true,
     });
 
     if (!document) {

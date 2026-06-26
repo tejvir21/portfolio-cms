@@ -12,7 +12,7 @@ interface Props<T> {
 export default function DataTable<T>({ data, columns }: Props<T>) {
   return (
     <div className="overflow-x-auto rounded-2xl border border-slate-800">
-      <table className="w-full min-w-[700px]">
+      <table className="w-full min-w-175">
         <thead>
           <tr className="border-b border-slate-800 bg-slate-900">
             {columns.map((column) => (

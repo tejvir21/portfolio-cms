@@ -21,6 +21,8 @@ export default function Skills() {
   const [editing, setEditing] = useState<Skill | null>(null);
   const [deleting, setDeleting] = useState<Skill | null>(null);
 
+  const [search, setSearch] = useState("");
+
   const { data, isLoading } = useSkills();
   const createMutation = useCreateSkill();
   const updateMutation = useUpdateSkill();
@@ -36,7 +38,18 @@ export default function Skills() {
       <PageHeader
         title="Skills"
         description="Manage technical skills."
-        action={<AddButton label="Add Skill" onClick={() => setCreateOpen(true)} />}
+        action={
+          <div className="flex gap-4">
+            <input
+              type="text"
+              value={search}
+              className="border rounded-2xl text-white px-4 bg-gray-800"
+              placeholder="Search"
+              onChange={(e) => setSearch(e.target.value)}
+            />
+            <AddButton label="Add Skill" onClick={() => setCreateOpen(true)} />
+          </div>
+        }
       />
 
       {isLoading ? (
@@ -45,7 +58,13 @@ export default function Skills() {
         <EmptyState title="No Skills" description="Create your first skill" />
       ) : (
         <SkillTable
-          skills={data}
+          skills={data
+            .sort((a, b) => a.displayOrder - b.displayOrder)
+            .filter(
+              (skill) =>
+                skill.name.toLowerCase().includes(search.toLowerCase()) ||
+                skill.category.toLowerCase().includes(search.toLowerCase()),
+            )}
           onEdit={(skill) => setEditing(skill)}
           onDelete={(skill) => setDeleting(skill)}
         />
@@ -67,6 +86,7 @@ export default function Skills() {
               onError: () => showError("Create failed"),
             });
           }}
+          data={data}
         />
       </FormModal>
 

@@ -21,7 +21,10 @@ export default function SkillTable({ skills, onEdit, onDelete }: Props) {
           title: "Proficiency",
           render: (row) => `${row.proficiency}%`,
         },
-        { key: "displayOrder", title: "Order" },
+
+        { key: "skillSequence", title: "Skill Order" },
+
+        { key: "displayOrder", title: "Display Order" },
         {
           key: "actions",
           title: "Actions",

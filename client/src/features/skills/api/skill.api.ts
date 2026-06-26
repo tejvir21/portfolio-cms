@@ -12,6 +12,7 @@ export const getSkills = async (): Promise<Skill[]> => {
 export interface SkillPayload {
   name: string;
   category: string;
+  skillSequence: number;
   icon?: string;
   proficiency: number;
   displayOrder: number;

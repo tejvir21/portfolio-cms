@@ -25,6 +25,16 @@ export default function ProjectTable({ projects, onEdit, onDelete }: Props) {
         },
 
         {
+          key: "views",
+          title: "Views",
+        },
+
+        {
+          key: "displayOrder",
+          title: "Display Order",
+        },
+
+        {
           key: "featured",
           title: "Status",
 

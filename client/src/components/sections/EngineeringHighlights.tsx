@@ -31,13 +31,13 @@ export default function EngineeringHighlights() {
           return (
             <div
               key={item}
-              className="group rounded-2xl border border-slate-800 bg-slate-900/80 p-6 transition hover:-translate-y-1 hover:border-cyan-500/30 hover:shadow-[0_0_30px_rgba(34,211,238,0.08)]"
+              className="group rounded-2xl border border-slate-800 bg-slate-900/80 py-2 px-4 transition hover:-translate-y-1 hover:border-cyan-500/30 hover:shadow-[0_0_30px_rgba(34,211,238,0.08)]"
             >
-              <div className="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-cyan-500/10 text-cyan-300">
-                <Icon className="h-6 w-6" />
-              </div>
+              <div className="flex items-center gap-4 py-2 text-cyan-300">
+                <Icon className="bg-cyan-500/10 h-fit w-fit p-2 rounded-2xl" />
 
-              <p className="text-base leading-7 text-slate-200">{item}</p>
+                <p className="text-base leading-7 text-slate-200">{item}</p>
+              </div>
             </div>
           );
         })}

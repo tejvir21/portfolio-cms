@@ -81,13 +81,12 @@ function SkillCard({ skill }: { skill: Skill }) {
           </div>
 
           <div className="min-w-0">
-            <p className="truncate text-base font-semibold text-slate-100">
+            <p className="text-base font-semibold text-slate-100">
               {skill.name}
             </p>
-
-            <p className="mt-1 text-sm text-slate-400">
+            {/* <p className="mt-1 text-sm text-slate-400 w-32">
               {skill.category || "Skill"}
-            </p>
+            </p> */}
           </div>
         </div>
 
@@ -145,9 +144,11 @@ export default function SkillsSection() {
             </div>
 
             <div className="grid gap-4 sm:grid-cols-2">
-              {skills.map((skill) => (
-                <SkillCard key={skill._id} skill={skill} />
-              ))}
+              {skills
+                .sort((a, b) => (a.skillSequence ?? 0) - (b.skillSequence ?? 0))
+                .map((skill) => (
+                  <SkillCard key={skill._id} skill={skill} />
+                ))}
             </div>
           </div>
         ))}

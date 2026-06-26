@@ -37,7 +37,10 @@ export default function Achievements() {
         title="Achievements"
         description="Manage achievements."
         action={
-          <AddButton label="Add Achievement" onClick={() => setCreateOpen(true)} />
+          <AddButton
+            label="Add Achievement"
+            onClick={() => setCreateOpen(true)}
+          />
         }
       />
 
@@ -50,7 +53,7 @@ export default function Achievements() {
         />
       ) : (
         <AchievementTable
-          achievements={data}
+          achievements={data.sort((a, b) => a.displayOrder - b.displayOrder)}
           onEdit={(achievement) => setEditing(achievement)}
           onDelete={(achievement) => setDeleting(achievement)}
         />
@@ -72,6 +75,7 @@ export default function Achievements() {
               onError: () => showError("Create failed"),
             });
           }}
+          totalAchievements={data?.length}
         />
       </FormModal>
 

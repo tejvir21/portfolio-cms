@@ -56,6 +56,10 @@ export default function ExperienceTable({
           title: "Type",
         },
         {
+          key: "displayOrder",
+          title: "Order",
+        },
+        {
           key: "duration",
           title: "Duration",
           render: (row) =>

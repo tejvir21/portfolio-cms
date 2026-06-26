@@ -20,6 +20,7 @@ interface Props {
   defaultValues?: ExperienceFormDefaults;
   loading?: boolean;
   onSubmit: (values: ExperienceFormValues) => void;
+  totalExperiences?: number;
 }
 
 const toDateInputValue = (value?: string) => {
@@ -32,6 +33,7 @@ export default function ExperienceForm({
   defaultValues,
   loading,
   onSubmit,
+  totalExperiences = 0,
 }: Props) {
   const normalizedDefaultValues = useMemo(
     () => ({
@@ -47,7 +49,7 @@ export default function ExperienceForm({
         ? defaultValues.technologies.join(", ")
         : (defaultValues?.technologies ?? ""),
       companyLogo: defaultValues?.companyLogo ?? "",
-      displayOrder: defaultValues?.displayOrder ?? 0,
+      displayOrder: defaultValues?.displayOrder ?? totalExperiences,
     }),
     [defaultValues],
   );

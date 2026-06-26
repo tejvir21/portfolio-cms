@@ -13,6 +13,7 @@ interface Props {
   defaultValues?: Partial<AchievementFormValues>;
   loading?: boolean;
   onSubmit: (values: AchievementFormValues) => void;
+  totalAchievements?: number;
 }
 
 const toDateInputValue = (value?: string) => value?.slice(0, 10) ?? "";
@@ -21,6 +22,7 @@ export default function AchievementForm({
   defaultValues,
   loading,
   onSubmit,
+  totalAchievements = 0,
 }: Props) {
   const {
     register,
@@ -36,7 +38,7 @@ export default function AchievementForm({
       date: toDateInputValue(defaultValues?.date),
       credentialUrl: defaultValues?.credentialUrl ?? "",
       imageUrl: defaultValues?.imageUrl ?? "",
-      displayOrder: defaultValues?.displayOrder ?? 0,
+      displayOrder: defaultValues?.displayOrder ?? totalAchievements,
     },
   });
 

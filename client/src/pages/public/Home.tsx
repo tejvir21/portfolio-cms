@@ -1,7 +1,7 @@
 import Navbar from "../../components/common/Navbar";
 
 import HeroSection from "../../components/sections/HeroSection";
-import StatsSection from "../../components/sections/StatsSection";
+// import StatsSection from "../../components/sections/StatsSection";
 import EngineeringHighlights from "../../components/sections/EngineeringHighlights";
 
 import ExperienceSection from "../../components/sections/ExperienceSection";
@@ -36,7 +36,7 @@ export default function Home() {
 
       <HeroSection />
 
-      <StatsSection />
+      {/* <StatsSection /> */}
 
       <EngineeringHighlights />
 

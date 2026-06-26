@@ -17,12 +17,15 @@ interface Props {
   onSubmit: (values: ProjectFormValues) => void;
 
   loading?: boolean;
+
+  totalProjects?: number;
 }
 
 export default function ProjectForm({
   defaultValues,
   onSubmit,
   loading,
+  totalProjects = 0,
 }: Props) {
   // const normalizedDefaultValues = useMemo<ProjectFormValues>(() => {
   //   const values = defaultValues as
@@ -60,7 +63,7 @@ export default function ProjectForm({
 
       role: defaultValues?.role ?? "",
 
-      displayOrder: defaultValues?.displayOrder ?? 0,
+      displayOrder: defaultValues?.displayOrder ?? totalProjects,
 
       shortDescription: defaultValues?.shortDescription ?? "",
 

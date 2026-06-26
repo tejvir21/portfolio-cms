@@ -14,9 +14,7 @@ export default function ProjectsSection() {
       if (a.featured !== b.featured) return a.featured ? -1 : 1;
 
       // return new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime();
-      return (
-        new Date(b.displayOrder).getTime() - new Date(a.displayOrder).getTime()
-      );
+      return (a.displayOrder || 0) - (b.displayOrder || 0);
     });
   }, [data]);
 

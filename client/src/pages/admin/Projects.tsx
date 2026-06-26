@@ -80,7 +80,9 @@ export default function Projects() {
         />
       ) : (
         <ProjectTable
-          projects={data}
+          projects={data.sort(
+            (a: any, b: any) => a.displayOrder - b.displayOrder,
+          )}
           onEdit={(project) => setEditing(project)}
           onDelete={(project) => setDeleting(project)}
         />
@@ -108,6 +110,7 @@ export default function Projects() {
               },
             });
           }}
+          totalProjects={data?.length || 0}
         />
       </FormModal>
 

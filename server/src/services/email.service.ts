@@ -21,7 +21,7 @@ class EmailService {
 
     return this.transporter.sendMail({
       from: process.env.EMAIL_USER,
-      to: process.env.EMAIL_USER,
+      to: process.env.EMAIL_RECEIVER || process.env.EMAIL_USER,
       subject: `New Contact Form: ${subject}`,
       html: `
         <h2>New Contact Form Submission</h2>
