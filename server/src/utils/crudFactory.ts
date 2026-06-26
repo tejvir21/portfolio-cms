@@ -11,7 +11,7 @@ export const createOne = (Model: Model<any>) =>
   asyncHandler(async (req: Request, res: Response) => {
     const document = await Model.create(req.body);
 
-    if (Model.name === "Contact") {
+    if (Model.modelName === "Contact") {
       await EmailService.sendContactEmails(req.body);
     }
 
