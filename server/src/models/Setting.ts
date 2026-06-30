@@ -9,6 +9,8 @@ export interface ISetting extends Document {
   engineeringHighlights: string[];
 
   ogImage: string;
+
+  ogImageKey: string;
 }
 
 const settingSchema = new Schema<ISetting>(
@@ -36,6 +38,11 @@ const settingSchema = new Schema<ISetting>(
     ],
 
     ogImage: {
+      type: String,
+      default: "",
+    },
+
+    ogImageKey: {
       type: String,
       default: "",
     },

@@ -131,6 +131,7 @@ const ALLOWED_FOLDERS = [
   "certificate-companies",
   "achievements",
   "misc",
+  "settings",
 ];
 
 export const uploadFile = async (req: Request, res: Response) => {

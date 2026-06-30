@@ -8,6 +8,7 @@ import { useProfile } from "../../features/profile/hooks/useProfile";
 import { useProjects } from "../../features/projects/hooks/useProjects";
 import { useSkills } from "../../features/skills/hooks/useSkills";
 import { useCertificates } from "@/features/certificates/hooks/useCertificates";
+import { useSeoStore } from "@/store/seo.store";
 
 export default function Navbar() {
   const { data: profile } = useProfile();
@@ -20,13 +21,18 @@ export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const location = useLocation();
 
-  const initials =
+  const { seo } = useSeoStore();
+
+  const initials = seo?.ogImage ? (
+    <img src={seo?.ogImage} className="h-11 w-11" alt="<TC/>" />
+  ) : (
     profile?.name
       ?.split(" ")
       .map((part: string) => part[0])
       .join("")
       .slice(0, 2)
-      .toUpperCase() || "TC";
+      .toUpperCase() || "<TC/>"
+  );
 
   const navItems = useMemo(
     () =>

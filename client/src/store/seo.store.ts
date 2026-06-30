@@ -5,6 +5,7 @@ interface SeoData {
   homeTitle: string;
   homeDescription: string;
   keywords: string[];
+  ogImage: string;
 }
 
 interface SeoStore {

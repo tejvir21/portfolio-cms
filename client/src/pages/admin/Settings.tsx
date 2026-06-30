@@ -8,11 +8,14 @@ import { useSettings } from "../../features/settings/hooks/useSettings";
 import { useUpdateSettings } from "../../features/settings/hooks/useUpdateSettings";
 import { useUpload } from "../../features/upload/hooks/useUpload";
 import { showError, showSuccess } from "../../utils/toast";
+import { useDeleteFile } from "@/features/upload/hooks/useDeleteFile";
 
 export default function Settings() {
   const { data } = useSettings();
   const updateMutation = useUpdateSettings();
   const uploadMutation = useUpload();
+
+  const deleteMutation = useDeleteFile();
 
   const { register, handleSubmit, reset, setValue, watch } =
     useForm<SettingsFormValues>({
@@ -22,6 +25,7 @@ export default function Settings() {
         keywords: "",
         engineeringHighlights: "",
         ogImage: "",
+        ogImageKey: "",
       },
     });
 
@@ -36,6 +40,7 @@ export default function Settings() {
       keywords: data.keywords?.join(", ") ?? "",
       engineeringHighlights: data.engineeringHighlights?.join("\n") ?? "",
       ogImage: data.ogImage ?? "",
+      ogImageKey: data.ogImageKey ?? "",
     });
   }, [data, reset]);
 
@@ -97,17 +102,29 @@ export default function Settings() {
           onSelect={async (file) => {
             // const result = await uploadMutation.mutateAsync(file);
 
-            const result = await uploadMutation.mutateAsync({
-              file,
-              folder: "settings",
-            });
+            try {
+              if (data?.ogImageKey) {
+                await deleteMutation.mutateAsync(data?.ogImageKey);
+              }
 
-            setValue("ogImage", result.url, { shouldDirty: true });
-            showSuccess("Image uploaded");
+              const result = await uploadMutation.mutateAsync({
+                file,
+                folder: "settings",
+              });
+
+              setValue("ogImage", result.url, { shouldDirty: true });
+
+              setValue("ogImageKey", result.key, { shouldDirty: true });
+
+              showSuccess("Image uploaded");
+            } catch (error) {
+              showError("Image upload failed");
+            }
           }}
         />
 
         <input type="hidden" {...register("ogImage")} />
+        <input type="hidden" {...register("ogImageKey")} />
 
         <button
           disabled={updateMutation.isPending || uploadMutation.isPending}
@@ -116,6 +133,19 @@ export default function Settings() {
         >
           {updateMutation.isPending ? "Saving..." : "Save Settings"}
         </button>
+
+        <p
+          className="text-red-700 cursor-pointer hover:underline"
+          onClick={async () => {
+            if (data?.ogImageKey) {
+              await deleteMutation.mutateAsync(data?.ogImageKey);
+            }
+            setValue("ogImage", "", { shouldDirty: true });
+            setValue("ogImageKey", "", { shouldDirty: true });
+          }}
+        >
+          Clear Image
+        </p>
       </form>
     </>
   );

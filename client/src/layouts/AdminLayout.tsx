@@ -1,15 +1,33 @@
 import { Outlet } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import Sidebar from "../components/admin/Sidebar";
 import MobileSidebar from "../components/admin/MobileSidebar";
 import Topbar from "../components/admin/Topbar";
+import { useSeoStore } from "@/store/seo.store";
+import PageLoader from "@/components/common/PageLoader";
+import SEO from "@/lib/seo";
 
 export default function AdminLayout() {
   const [open, setOpen] = useState(false);
 
+  const { fetchSeo, seo } = useSeoStore();
+
+  useEffect(() => {
+    fetchSeo();
+  }, []);
+
+  if (!seo) return <PageLoader />;
+
   return (
     <div className="min-h-screen bg-slate-950 text-white">
+      <SEO
+        title={seo?.homeTitle || "Tejvir's Portfolio"}
+        description={seo?.homeDescription || ""}
+        keywords={seo?.keywords?.join(", ")}
+        ogImage={seo?.ogImage || "/favicon.svg"}
+      />
+
       <div className="flex">
         <Sidebar />
 

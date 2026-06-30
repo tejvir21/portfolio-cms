@@ -1,23 +1,39 @@
 import { useForm } from "react-hook-form";
 
 import { useLogin } from "../../features/auth/hooks/useLogin";
+import { toast } from "react-toastify";
+import { useState } from "react";
 
 interface FormValues {
   email: string;
   password: string;
+  otp?: string;
 }
 
 export default function Login() {
   const { register, handleSubmit } = useForm<FormValues>();
+
+  const [sendOtp, setSendOtp] = useState(false);
 
   const loginMutation = useLogin();
 
   const onSubmit = async (data: FormValues) => {
     const response = await loginMutation.mutateAsync(data);
 
-    localStorage.setItem("token", response.data.token);
+    if (response.success) {
+      toast.success(response?.message);
 
-    window.location.href = "/admin";
+      setSendOtp(true);
+
+      if (response?.data?.token && sendOtp) {
+        localStorage.setItem("token", response.data.token);
+
+        window.location.href = "/admin";
+        return;
+      }
+    } else {
+      toast.error(response?.message);
+    }
   };
 
   return (
@@ -40,6 +56,14 @@ export default function Login() {
           placeholder="Password"
           className="w-full rounded border p-3"
         />
+
+        {sendOtp && (
+          <input
+            {...register("otp")}
+            placeholder="OTP"
+            className="w-full rounded border p-3"
+          />
+        )}
 
         <button type="submit" className="w-full rounded bg-sky-500 p-3">
           Login

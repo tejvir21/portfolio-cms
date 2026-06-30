@@ -27,9 +27,10 @@ export default function Home() {
   return (
     <>
       <SEO
-        title={seo?.homeTitle || ""}
+        title={seo?.homeTitle || "Tejvir's Portfolio"}
         description={seo?.homeDescription || ""}
         keywords={seo?.keywords?.join(", ")}
+        ogImage={seo?.ogImage || "/favicon.svg"}
       />
 
       <Navbar />

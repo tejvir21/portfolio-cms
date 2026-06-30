@@ -9,6 +9,7 @@ export interface Settings {
   keywords: string[];
   engineeringHighlights: string[];
   ogImage: string;
+  ogImageKey: string;
 }
 
 export interface SettingsFormValues {
@@ -17,6 +18,7 @@ export interface SettingsFormValues {
   keywords: string;
   engineeringHighlights: string;
   ogImage: string;
+  ogImageKey: string;
 }
 
 const splitLines = (value: string) =>
@@ -41,6 +43,7 @@ export const updateSettings = async (data: SettingsFormValues) => {
       .filter(Boolean),
     engineeringHighlights: splitLines(data.engineeringHighlights),
     ogImage: data.ogImage,
+    ogImageKey: data.ogImageKey,
   });
 
   return response.data.data;

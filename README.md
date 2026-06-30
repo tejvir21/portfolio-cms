@@ -1,61 +1,105 @@
 # Portfolio CMS
 
-A full-stack portfolio content management system with a React + Vite frontend and an Express + TypeScript backend.
+A full-stack portfolio content management system built with a React + Vite frontend and an Express + TypeScript backend. It supports a public portfolio site, an authenticated admin dashboard, and media uploads with Cloudinary, Cloudflare R2, or Supabase-compatible storage.
+
+## What's new
+
+- Updated to a modern React 19 + Vite 8 frontend with React Router 7, TanStack Query, Zustand, and Tailwind-based UI components.
+- Added a richer admin experience for managing profile, projects, experience, skills, achievements, certificates, certificate companies, contact messages, and site settings.
+- The backend now includes dedicated upload, dashboard, and contact endpoints, along with validation and centralized error handling.
+- Supabase environment variables are now required by the server startup configuration.
+- Cloudflare R2 support remains available through the S3-compatible integration, alongside Cloudinary.
+
+## Tech stack
+
+### Frontend
+
+- React 19
+- Vite
+- TypeScript
+- Tailwind CSS
+- React Router
+- TanStack Query
+- React Hook Form + Zod
+- React Toastify and Framer Motion
+
+### Backend
+
+- Express.js + TypeScript
+- MongoDB + Mongoose
+- JWT authentication
+- Multer-based uploads
+- Cloudinary and Cloudflare R2 support
+- Nodemailer for contact/email workflows
+- Supabase SDK integration
 
 ## Project structure
 
-- client/ — React 19 app using Vite, Tailwind CSS, React Router, React Query, and file upload support.
-- server/ — Express API with TypeScript, MongoDB, JWT authentication, Cloudinary/R2 uploads, email support, and data validation.
-
-## What's new (latest changes)
-
-- Supabase packages were added as an optional integration. A `SUPABASE_URL` environment variable may be present if you use Supabase services.
-- Cloudflare R2 support: the server uses an S3-compatible client configured for R2 (see `R2_*` env vars).
-- Cloudinary configuration remains available for image uploads; the `cloudinary` package is present.
+- client/ — public portfolio site and admin dashboard UI
+- server/ — Express API, MongoDB models, validation, and upload services
+- server/src/routes/ — API route definitions
+- server/src/controllers/ — request handlers
+- server/src/models/ — Mongoose schemas
+- server/src/validations/ — request validation rules
 
 ## Key features
 
-- Admin authentication and authorization
-- Profile, projects, skills, experience, achievements, certificates, and settings management
-- File uploading and asset storage support (Cloudinary or Cloudflare R2)
-- Contact form API
-- Dashboard and analytics endpoints
-- Validation and centralized error handling
+- Public portfolio landing page with project showcase and project details view
+- Secure admin authentication and protected dashboard routes
+- CRUD management for:
+  - profile
+  - projects
+  - skills
+  - experience
+  - achievements
+  - certificates
+  - certificate companies
+  - site settings
+- Contact form handling and message storage
+- Dashboard and analytics-style endpoints
+- File upload and media storage support
 
 ## Prerequisites
 
 - Node.js 18+ (Node 20+ recommended)
 - npm
-- MongoDB connection URI (required for the server)
-- Optional: Cloudinary or Cloudflare R2 account for media uploads
-- Optional: Supabase project URL if using Supabase features
+- MongoDB connection URI
 - Email provider credentials for contact/email features
+- Supabase project credentials (required by the server)
+- Optional: Cloudinary or Cloudflare R2 credentials for media storage
 
 ## Environment configuration
 
 ### Client
 
-Create a `.env` file inside `client/`:
+Create a .env file inside client/:
 
+```env
 VITE_API_URL=http://localhost:5000/api
+```
 
 ### Server
 
-Create a `.env` file inside `server/` with the following values (required values are listed first):
+Create a .env file inside server/:
 
-```
+```env
 # Required
 PORT=5000
 MONGODB_URI=<your_mongodb_connection_string>
 JWT_SECRET=<your_jwt_secret>
 JWT_EXPIRES_IN=7d
 
+# Supabase (required)
+SUPABASE_URL=<your_supabase_project_url>
+SUPABASE_SERVICE_ROLE_KEY=<supabase_service_role_key>
+SUPABASE_BUCKET_NAME=<supabase_bucket_name>
+
 # Cloudinary (optional)
 CLOUDINARY_CLOUD_NAME=<cloudinary_cloud_name>
 CLOUDINARY_API_KEY=<cloudinary_api_key>
 CLOUDINARY_API_SECRET=<cloudinary_api_secret>
 
-# Cloudflare R2 (optional - used via S3 client)
+# Cloudflare R2 (optional)
 R2_ACCOUNT_ID=<cloudflare_r2_account_id>
 R2_ACCESS_KEY_ID=<cloudflare_r2_access_key_id>
 R2_SECRET_ACCESS_KEY=<cloudflare_r2_secret_access_key>
@@ -65,18 +109,13 @@ R2_PUBLIC_URL=<r2_public_url>
 # Email
 EMAIL_USER=<email_username>
 EMAIL_PASS=<email_password>
-
-# Supabase
-SUPABASE_URL=<your_supabase_project_url>
-SUPABASE_SERVICE_ROLE_KEY=<supabase_service_role_key>
-SUPABASE_BUCKET_NAME=<supabase_bucket_name>
 ```
 
-> Do not commit `.env` files to version control.
+> Do not commit .env files to version control.
 
 ## Installation
 
-Install dependencies separately for each package.
+Install dependencies separately for each app:
 
 ```bash
 cd server
@@ -104,46 +143,45 @@ npm run dev
 
 Then open the local Vite URL shown in the terminal.
 
-## Build
+## Seed the default admin user
 
-To build the client for production:
+The server includes a seed script that creates a default admin account:
 
 ```bash
-cd client
-npm run build
+cd server
+npm run seed-admin
 ```
 
-## Server utilities
+> Change the default password after your first login.
 
-- `npm run seed-admin` — seed an admin user into the database
+## API overview
 
-## API
+The backend exposes routes under /api, including:
 
-The backend exposes routes under `/api` such as:
+- /api/auth
+- /api/profile
+- /api/projects
+- /api/skills
+- /api/experience
+- /api/achievements
+- /api/certificates
+- /api/certificate-companies
+- /api/contact
+- /api/upload
+- /api/dashboard
+- /api/settings
 
-- `/api/auth`
-- `/api/profile`
-- `/api/projects`
-- `/api/skills`
-- `/api/experience`
-- `/api/achievements`
-- `/api/certificates`
-- `/api/contact`
-- `/api/upload`
-- `/api/dashboard`
-- `/api/settings`
+Health check:
 
-Health check endpoint:
-
-```
+```http
 GET /api/health
 ```
 
 ## Notes
 
-- The server validates the presence of `PORT`, `MONGODB_URI`, `JWT_SECRET`, and `JWT_EXPIRES_IN` at startup; ensure they are set.
-- Choose either Cloudinary or Cloudflare R2 for media storage; both are optional but require credentials.
-- Supabase packages are installed in `server/node_modules` and can be wired up if you plan to use Supabase features — the repo does not currently include an active Supabase client in server code.
+- The server validates the presence of PORT, MONGODB_URI, JWT_SECRET, JWT_EXPIRES_IN, and the Supabase variables at startup.
+- Choose Cloudinary or Cloudflare R2 for media storage if you want to use those integrations; they are optional but require credentials.
+- The admin UI is available at /admin and the login page is /admin/login.
 
 ## License
 
