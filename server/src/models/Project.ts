@@ -11,6 +11,8 @@ export interface IProject extends Document {
 
   technologies: string[];
 
+  display: boolean;
+
   displayOrder: number;
 
   imageUrl: string;
@@ -78,6 +80,11 @@ const projectSchema = new Schema<IProject>(
         type: String,
       },
     ],
+
+    display: {
+      type: Boolean,
+      default: true,
+    },
 
     displayOrder: {
       type: Number,

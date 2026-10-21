@@ -9,6 +9,8 @@ export const skillSchema = z.object({
 
   proficiency: z.number().min(1).max(100),
 
+  display: z.boolean(),
+
   displayOrder: z.number().min(0),
 });
 

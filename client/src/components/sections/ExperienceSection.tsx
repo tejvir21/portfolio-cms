@@ -60,93 +60,95 @@ export default function ExperienceSection() {
       </div>
 
       <div className="mt-12 space-y-8">
-        {experiences.map((item) => {
-          const points = toPoints(item.description);
+        {experiences
+          .filter((experience) => experience.display)
+          .map((item) => {
+            const points = toPoints(item.description);
 
-          return (
-            <article
-              key={item._id}
-              className="rounded-3xl border border-slate-800 bg-slate-900/90 p-6 shadow-[0_0_30px_rgba(34,211,238,0.05)] transition hover:border-cyan-500/30 hover:shadow-[0_0_40px_rgba(34,211,238,0.10)] md:p-8"
-            >
-              <div className="flex flex-col gap-5 md:flex-row md:items-start md:justify-between">
-                <div className="flex gap-4">
-                  {item.companyLogo ? (
-                    <img
-                      src={item.companyLogo}
-                      alt={item.company || "Company logo"}
-                      className="h-14 w-14 rounded-2xl object-cover ring-1 ring-slate-700"
-                    />
-                  ) : (
-                    <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-cyan-500/10 text-cyan-300">
-                      <BriefcaseBusiness size={24} />
-                    </div>
-                  )}
-
-                  <div>
-                    <h3 className="text-2xl font-semibold text-white">
-                      {item.position}
-                    </h3>
-
-                    <p className="mt-1 text-base font-medium text-cyan-300">
-                      {item.company}
-                    </p>
-
-                    {(item.location || item.employmentType) && (
-                      <div className="mt-2 flex flex-wrap items-center gap-3 text-sm text-slate-400">
-                        {item.location && (
-                          <span className="inline-flex items-center gap-1.5">
-                            <MapPin size={14} />
-                            {item.location}
-                          </span>
-                        )}
-
-                        {item.employmentType && (
-                          <span className="rounded-full border border-slate-700 px-2.5 py-1 text-xs text-slate-300">
-                            {item.employmentType}
-                          </span>
-                        )}
+            return (
+              <article
+                key={item._id}
+                className="rounded-3xl border border-slate-800 bg-slate-900/90 p-6 shadow-[0_0_30px_rgba(34,211,238,0.05)] transition hover:border-cyan-500/30 hover:shadow-[0_0_40px_rgba(34,211,238,0.10)] md:p-8"
+              >
+                <div className="flex flex-col gap-5 md:flex-row md:items-start md:justify-between">
+                  <div className="flex gap-4">
+                    {item.companyLogo ? (
+                      <img
+                        src={item.companyLogo}
+                        alt={item.company || "Company logo"}
+                        className="h-14 w-14 rounded-2xl object-cover ring-1 ring-slate-700"
+                      />
+                    ) : (
+                      <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-cyan-500/10 text-cyan-300">
+                        <BriefcaseBusiness size={24} />
                       </div>
                     )}
+
+                    <div>
+                      <h3 className="text-2xl font-semibold text-white">
+                        {item.position}
+                      </h3>
+
+                      <p className="mt-1 text-base font-medium text-cyan-300">
+                        {item.company}
+                      </p>
+
+                      {(item.location || item.employmentType) && (
+                        <div className="mt-2 flex flex-wrap items-center gap-3 text-sm text-slate-400">
+                          {item.location && (
+                            <span className="inline-flex items-center gap-1.5">
+                              <MapPin size={14} />
+                              {item.location}
+                            </span>
+                          )}
+
+                          {item.employmentType && (
+                            <span className="rounded-full border border-slate-700 px-2.5 py-1 text-xs text-slate-300">
+                              {item.employmentType}
+                            </span>
+                          )}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+
+                  <div className="inline-flex items-center gap-2 rounded-full border border-slate-700 px-4 py-2 text-sm text-slate-300">
+                    <CalendarDays size={16} />
+                    <span>
+                      {formatDate(item.startDate)} –{" "}
+                      {item.currentlyWorking
+                        ? "Present"
+                        : formatDate(item.endDate)}
+                    </span>
                   </div>
                 </div>
 
-                <div className="inline-flex items-center gap-2 rounded-full border border-slate-700 px-4 py-2 text-sm text-slate-300">
-                  <CalendarDays size={16} />
-                  <span>
-                    {formatDate(item.startDate)} –{" "}
-                    {item.currentlyWorking
-                      ? "Present"
-                      : formatDate(item.endDate)}
-                  </span>
-                </div>
-              </div>
+                {points.length > 0 && (
+                  <ul className="mt-6 space-y-3 text-sm leading-7 text-slate-300 md:text-base">
+                    {points.map((point) => (
+                      <li key={point} className="flex items-start gap-3">
+                        <span className="mt-2 h-2 w-2 shrink-0 rounded-full bg-cyan-300" />
+                        <span>{point}</span>
+                      </li>
+                    ))}
+                  </ul>
+                )}
 
-              {points.length > 0 && (
-                <ul className="mt-6 space-y-3 text-sm leading-7 text-slate-300 md:text-base">
-                  {points.map((point) => (
-                    <li key={point} className="flex items-start gap-3">
-                      <span className="mt-2 h-2 w-2 shrink-0 rounded-full bg-cyan-300" />
-                      <span>{point}</span>
-                    </li>
-                  ))}
-                </ul>
-              )}
-
-              {!!item.technologies?.length && (
-                <div className="mt-6 flex flex-wrap gap-2">
-                  {item.technologies.map((technology) => (
-                    <span
-                      key={technology}
-                      className="rounded-full border border-slate-700 bg-slate-950/70 px-3 py-1.5 text-sm text-slate-200"
-                    >
-                      {technology}
-                    </span>
-                  ))}
-                </div>
-              )}
-            </article>
-          );
-        })}
+                {!!item.technologies?.length && (
+                  <div className="mt-6 flex flex-wrap gap-2">
+                    {item.technologies.map((technology) => (
+                      <span
+                        key={technology}
+                        className="rounded-full border border-slate-700 bg-slate-950/70 px-3 py-1.5 text-sm text-slate-200"
+                      >
+                        {technology}
+                      </span>
+                    ))}
+                  </div>
+                )}
+              </article>
+            );
+          })}
       </div>
     </section>
   );

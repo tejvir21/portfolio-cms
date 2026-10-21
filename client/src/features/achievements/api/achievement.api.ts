@@ -16,6 +16,7 @@ export interface AchievementPayload {
   date?: string;
   imageUrl?: string;
   credentialUrl?: string;
+  display: boolean;
   displayOrder: number;
 }
 

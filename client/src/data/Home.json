@@ -1,0 +1,23 @@
+{
+  "seo": {
+    "homeTitle": "Tejvir's Portfolio",
+    "homeDescription": "Software Engineer with hands-on experience architecting scalable full-stack applications using React, Next.js, Node.js, and TypeScript. Skilled in designing high-throughput REST APIs, low-latency real-time systems, and performance optimized architectures. Proven track record of driving engineering velocity, delivering production-ready systems, and solving complex architectural problems in fast-paced environments.",
+    "keywords": [
+      "full-stack",
+      "React",
+      "Next.js",
+      "Node.js",
+      "TypeScript",
+      "REST APIs",
+      "low-latency real-time systems",
+      "performance optimized architectures",
+      "tejvir chauhan",
+      "software engineer",
+      "portfolio",
+      "engineering velocity",
+      "production-ready systems",
+      "complex architectural problems"
+    ],
+    "ogImage": "/favicon.svg"
+  }
+}

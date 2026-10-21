@@ -102,7 +102,7 @@ export default function SkillsSection() {
   const { data, isLoading } = useSkills();
 
   const skillGroups = useMemo(() => {
-    return [...(data ?? [])]
+    return [...(data?.filter((skill) => skill.display) ?? [])]
       .sort((a, b) => a.displayOrder - b.displayOrder)
       .reduce<Record<string, Skill[]>>((groups, skill) => {
         const category = skill.category || "Other";

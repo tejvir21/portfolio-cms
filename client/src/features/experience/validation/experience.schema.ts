@@ -12,6 +12,7 @@ export const experienceSchema = z
     description: z.string().min(10, "Description is required"),
     technologies: z.string().optional(),
     companyLogo: z.string().optional(),
+    display: z.boolean(),
     displayOrder: z.number().min(0, "Display order must be 0 or more"),
   })
   .refine((data) => data.currentlyWorking || Boolean(data.endDate), {

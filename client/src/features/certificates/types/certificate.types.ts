@@ -9,5 +9,6 @@ export interface Certificate {
   imageUrl?: string;
   featured: boolean;
   createdAt?: string;
+  display: boolean;
   updatedAt?: string;
 }

@@ -36,6 +36,7 @@ export interface Project {
   challenges: string;
   learnings: string;
 
+  display: boolean;
   displayOrder?: number;
 
   createdAt: string;

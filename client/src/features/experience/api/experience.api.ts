@@ -14,6 +14,7 @@ export interface ExperiencePayload {
   description: string;
   technologies: string[];
   companyLogo?: string;
+  display: boolean;
   displayOrder: number;
 }
 

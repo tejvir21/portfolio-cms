@@ -35,6 +35,25 @@ export default function AchievementTable({
           ),
         },
         { key: "organization", title: "Organization" },
+        {
+          key: "display",
+          title: "Display",
+          render: (row) => (
+            <>
+              {row.display ? (
+                <button
+                  type="button"
+                  className="bg-green-500 h-4 w-4 rounded-full"
+                ></button>
+              ) : (
+                <button
+                  type="button"
+                  className="bg-red-500 h-4 w-4 rounded-full"
+                ></button>
+              )}
+            </>
+          ),
+        },
         { key: "displayOrder", title: "Order" },
         {
           key: "actions",

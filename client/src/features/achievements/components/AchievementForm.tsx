@@ -38,6 +38,7 @@ export default function AchievementForm({
       date: toDateInputValue(defaultValues?.date),
       credentialUrl: defaultValues?.credentialUrl ?? "",
       imageUrl: defaultValues?.imageUrl ?? "",
+      display: defaultValues?.display ?? true,
       displayOrder: defaultValues?.displayOrder ?? totalAchievements,
     },
   });
@@ -125,6 +126,17 @@ export default function AchievementForm({
 
       <FileUpload accept="image/*" preview={imageUrl} onSelect={handleUpload} />
       <input type="hidden" {...register("imageUrl")} />
+
+      <label className="flex items-center justify-between gap-4 rounded-2xl border border-slate-800 bg-slate-900 px-4 py-3">
+        <div>
+          <p className="font-medium text-white">Display</p>
+          <p className="text-xs text-slate-500">
+            Only display certificates are shown in the public section.
+          </p>
+        </div>
+
+        <input type="checkbox" {...register("display")} className="h-4 w-4" />
+      </label>
 
       <button
         disabled={loading || uploadMutation.isPending}

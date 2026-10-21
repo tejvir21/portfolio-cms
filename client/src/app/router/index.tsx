@@ -17,6 +17,7 @@ import Messages from "../../pages/admin/Messages";
 import Settings from "../../pages/admin/Settings";
 import ProjectDetails from "@/pages/public/ProjectDetails";
 import CertificateCompanies from "@/pages/admin/CertificateCompanies";
+import NotFound from "@/pages/NotFound";
 
 export const router = createBrowserRouter([
   {
@@ -98,5 +99,10 @@ export const router = createBrowserRouter([
         element: <Settings />,
       },
     ],
+  },
+
+  {
+    path: "*",
+    element: <NotFound />,
   },
 ]);

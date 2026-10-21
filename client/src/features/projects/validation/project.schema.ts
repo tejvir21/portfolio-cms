@@ -11,6 +11,8 @@ export const projectSchema = z.object({
 
   role: z.string().min(2, "Role is required"),
 
+  display: z.boolean(),
+
   displayOrder: z.number().min(0, "Display order must be 0 or more"),
 
   shortDescription: z.string().min(10, "Short description is required"),

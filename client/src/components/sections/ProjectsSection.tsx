@@ -52,9 +52,11 @@ export default function ProjectsSection() {
       </div>
 
       <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-        {visibleProjects.map((project) => (
-          <ProjectCard key={project._id} project={project} />
-        ))}
+        {visibleProjects
+          .filter((project) => project.display)
+          .map((project) => (
+            <ProjectCard key={project._id} project={project} />
+          ))}
       </div>
 
       {(hasHiddenProjects || showAll) && projects.length > 6 && (

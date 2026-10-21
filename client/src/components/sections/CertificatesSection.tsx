@@ -89,125 +89,129 @@ export default function CertificatesSection() {
       </div>
 
       <div className="mt-12 grid gap-6 lg:grid-cols-2">
-        {visibleCertificates.map((certificate) => {
-          const company = certificate.company
-            ? companyMap.get(certificate.company.toLowerCase())
-            : undefined;
+        {visibleCertificates
+          .filter((certificate) => certificate.display)
+          .map((certificate) => {
+            const company = certificate.company
+              ? companyMap.get(certificate.company.toLowerCase())
+              : undefined;
 
-          const issuer = certificate.issuer?.trim();
-          const credentialId = certificate.credentialId?.trim();
-          const issueDate = formatDate(certificate.issueDate);
+            const issuer = certificate.issuer?.trim();
+            const credentialId = certificate.credentialId?.trim();
+            const issueDate = formatDate(certificate.issueDate);
 
-          return (
-            <article
-              key={certificate._id}
-              className="rounded-3xl border border-slate-800 bg-slate-900/90 p-5 shadow-[0_0_30px_rgba(34,211,238,0.05)] transition hover:-translate-y-1 hover:border-cyan-500/30 hover:shadow-[0_0_40px_rgba(34,211,238,0.10)]"
-            >
-              <div className="flex items-start gap-4">
-                {/* badge / logo */}
-                <div className="relative flex h-18 w-18 shrink-0 items-center justify-center">
-                  <div className="absolute inset-0 rounded-2xl bg-cyan-500/10 blur-xl" />
+            return (
+              <article
+                key={certificate._id}
+                className="rounded-3xl border border-slate-800 bg-slate-900/90 p-5 shadow-[0_0_30px_rgba(34,211,238,0.05)] transition hover:-translate-y-1 hover:border-cyan-500/30 hover:shadow-[0_0_40px_rgba(34,211,238,0.10)]"
+              >
+                <div className="flex items-start gap-4">
+                  {/* badge / logo */}
+                  <div className="relative flex h-18 w-18 shrink-0 items-center justify-center">
+                    <div className="absolute inset-0 rounded-2xl bg-cyan-500/10 blur-xl" />
 
-                  <div className="relative flex h-16 w-16 items-center justify-center overflow-hidden rounded-2xl border border-slate-700 bg-slate-950">
-                    {company?.logoUrl ? (
-                      <img
-                        src={company.logoUrl}
-                        alt={company.name}
-                        className="h-10 w-10 object-contain"
-                      />
-                    ) : certificate.company ? (
-                      <span className="text-sm font-semibold tracking-wide text-cyan-300">
-                        {getCompanyInitials(certificate.company)}
-                      </span>
-                    ) : (
-                      <BadgeCheck size={26} className="text-cyan-300" />
-                    )}
-                  </div>
-                </div>
-
-                {/* content */}
-                <div className="min-w-0 flex-1">
-                  <div className="flex items-start justify-between gap-3">
-                    <div className="min-w-0">
-                      <h3 className="line-clamp-2 text-lg font-semibold leading-snug text-white">
-                        {certificate.title}
-                      </h3>
-
-                      <div className="mt-2 flex flex-wrap items-center gap-2">
-                        {certificate.company && (
-                          <span className="rounded-full border border-cyan-500/20 bg-cyan-500/10 px-3 py-1 text-xs font-medium text-cyan-300">
-                            {certificate.company}
-                          </span>
-                        )}
-
-                        {certificate.featured && (
-                          <span className="rounded-full border border-amber-500/20 bg-amber-500/10 px-3 py-1 text-xs font-medium text-amber-300">
-                            Featured
-                          </span>
-                        )}
-                      </div>
+                    <div className="relative flex h-16 w-16 items-center justify-center overflow-hidden rounded-2xl border border-slate-700 bg-slate-950">
+                      {company?.logoUrl ? (
+                        <img
+                          src={company.logoUrl}
+                          alt={company.name}
+                          className="h-10 w-10 object-contain"
+                        />
+                      ) : certificate.company ? (
+                        <span className="text-sm font-semibold tracking-wide text-cyan-300">
+                          {getCompanyInitials(certificate.company)}
+                        </span>
+                      ) : (
+                        <BadgeCheck size={26} className="text-cyan-300" />
+                      )}
                     </div>
                   </div>
 
-                  <div className="mt-4 space-y-2 text-sm text-slate-300">
-                    {issuer && (
-                      <div className="flex items-start gap-3">
-                        <Building2
-                          size={16}
-                          className="mt-0.5 shrink-0 text-cyan-300"
-                        />
-                        <span className="line-clamp-2">Issued by {issuer}</span>
-                      </div>
-                    )}
+                  {/* content */}
+                  <div className="min-w-0 flex-1">
+                    <div className="flex items-start justify-between gap-3">
+                      <div className="min-w-0">
+                        <h3 className="line-clamp-2 text-lg font-semibold leading-snug text-white">
+                          {certificate.title}
+                        </h3>
 
-                    {credentialId && (
-                      <div className="flex items-start gap-3">
-                        <Hash
-                          size={16}
-                          className="mt-0.5 shrink-0 text-cyan-300"
-                        />
-                        <span className="line-clamp-2 break-all">
-                          Credential ID: {credentialId}
-                        </span>
-                      </div>
-                    )}
-                  </div>
+                        <div className="mt-2 flex flex-wrap items-center gap-2">
+                          {certificate.company && (
+                            <span className="rounded-full border border-cyan-500/20 bg-cyan-500/10 px-3 py-1 text-xs font-medium text-cyan-300">
+                              {certificate.company}
+                            </span>
+                          )}
 
-                  <div className="mt-5 flex flex-wrap items-center justify-between gap-3">
-                    <div className="inline-flex items-center gap-2 text-sm text-slate-400">
-                      {issueDate ? (
-                        <>
-                          <CalendarDays size={15} />
-                          {issueDate}
-                        </>
-                      ) : (
-                        <span className="text-slate-500">
-                          Date not available
-                        </span>
+                          {certificate.featured && (
+                            <span className="rounded-full border border-amber-500/20 bg-amber-500/10 px-3 py-1 text-xs font-medium text-amber-300">
+                              Featured
+                            </span>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="mt-4 space-y-2 text-sm text-slate-300">
+                      {issuer && (
+                        <div className="flex items-start gap-3">
+                          <Building2
+                            size={16}
+                            className="mt-0.5 shrink-0 text-cyan-300"
+                          />
+                          <span className="line-clamp-2">
+                            Issued by {issuer}
+                          </span>
+                        </div>
+                      )}
+
+                      {credentialId && (
+                        <div className="flex items-start gap-3">
+                          <Hash
+                            size={16}
+                            className="mt-0.5 shrink-0 text-cyan-300"
+                          />
+                          <span className="line-clamp-2 break-all">
+                            Credential ID: {credentialId}
+                          </span>
+                        </div>
                       )}
                     </div>
 
-                    {certificate.credentialUrl ? (
-                      <a
-                        href={certificate.credentialUrl}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="inline-flex items-center gap-2 rounded-xl border border-cyan-500/30 bg-cyan-500/5 px-4 py-2 text-sm font-medium text-cyan-300 transition hover:border-cyan-400 hover:bg-cyan-500/10"
-                      >
-                        <ExternalLink size={15} />
-                        View Credential
-                      </a>
-                    ) : (
-                      <span className="rounded-full border border-slate-700 bg-slate-800 px-3 py-1 text-xs text-slate-400">
-                        No public link
-                      </span>
-                    )}
+                    <div className="mt-5 flex flex-wrap items-center justify-between gap-3">
+                      <div className="inline-flex items-center gap-2 text-sm text-slate-400">
+                        {issueDate ? (
+                          <>
+                            <CalendarDays size={15} />
+                            {issueDate}
+                          </>
+                        ) : (
+                          <span className="text-slate-500">
+                            Date not available
+                          </span>
+                        )}
+                      </div>
+
+                      {certificate.credentialUrl ? (
+                        <a
+                          href={certificate.credentialUrl}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="inline-flex items-center gap-2 rounded-xl border border-cyan-500/30 bg-cyan-500/5 px-4 py-2 text-sm font-medium text-cyan-300 transition hover:border-cyan-400 hover:bg-cyan-500/10"
+                        >
+                          <ExternalLink size={15} />
+                          View Credential
+                        </a>
+                      ) : (
+                        <span className="rounded-full border border-slate-700 bg-slate-800 px-3 py-1 text-xs text-slate-400">
+                          No public link
+                        </span>
+                      )}
+                    </div>
                   </div>
                 </div>
-              </div>
-            </article>
-          );
-        })}
+              </article>
+            );
+          })}
       </div>
 
       {(hasHiddenCertificates || showAll) && certificates.length > 4 && (

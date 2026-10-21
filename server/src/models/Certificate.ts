@@ -15,6 +15,8 @@ export interface ICertificate extends Document {
 
   imageUrl?: string;
 
+  display: boolean;
+
   featured: boolean;
 }
 
@@ -54,6 +56,11 @@ const certificateSchema = new Schema<ICertificate>(
     imageUrl: {
       type: String,
       default: "",
+    },
+
+    display: {
+      type: Boolean,
+      default: true,
     },
 
     featured: {

@@ -11,6 +11,8 @@ export interface Skill {
 
   proficiency: number;
 
+  display: boolean;
+
   displayOrder: number;
 
   createdAt: string;

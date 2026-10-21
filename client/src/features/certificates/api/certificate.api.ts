@@ -11,6 +11,7 @@ export interface CertificatePayload {
   credentialId?: string;
   credentialUrl?: string;
   imageUrl?: string;
+  display: boolean;
   featured: boolean;
 }
 

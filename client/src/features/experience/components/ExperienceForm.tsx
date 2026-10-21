@@ -49,6 +49,7 @@ export default function ExperienceForm({
         ? defaultValues.technologies.join(", ")
         : (defaultValues?.technologies ?? ""),
       companyLogo: defaultValues?.companyLogo ?? "",
+      display: defaultValues?.display ?? true,
       displayOrder: defaultValues?.displayOrder ?? totalExperiences,
     }),
     [defaultValues],
@@ -229,6 +230,17 @@ export default function ExperienceForm({
       />
 
       <input type="hidden" {...register("companyLogo")} />
+
+      <label className="flex items-center justify-between gap-4 rounded-2xl border border-slate-800 bg-slate-900 px-4 py-3">
+        <div>
+          <p className="font-medium text-white">Display experience</p>
+          <p className="text-xs text-slate-500">
+            Only Display experience are shown in the public section.
+          </p>
+        </div>
+
+        <input type="checkbox" {...register("display")} className="h-4 w-4" />
+      </label>
 
       <button
         disabled={loading || uploadMutation.isPending}

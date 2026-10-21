@@ -17,6 +17,8 @@ export const certificateSchema = z.object({
 
   imageUrl: z.string().optional(),
 
+  display: z.boolean(),
+
   // make it required, not optional
   featured: z.boolean(),
 });

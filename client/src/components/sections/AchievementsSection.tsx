@@ -62,81 +62,85 @@ export default function AchievementsSection() {
       </div>
 
       <div className="mt-12 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-        {visibleAchievements.map((achievement) => {
-          const points = toPoints(achievement.description);
-          const year = formatYear(achievement.date);
+        {visibleAchievements
+          .filter((achievement) => {
+            if (achievement.display) return achievement;
+          })
+          .map((achievement) => {
+            const points = toPoints(achievement.description);
+            const year = formatYear(achievement.date);
 
-          return (
-            <article
-              key={achievement._id}
-              className="group flex h-full flex-col rounded-3xl border border-slate-800 bg-slate-900/90 p-6 shadow-[0_0_35px_rgba(34,211,238,0.06)] transition hover:-translate-y-1 hover:border-cyan-500/40 hover:shadow-[0_0_40px_rgba(34,211,238,0.12)]"
-            >
-              <div className="flex items-start justify-between gap-4">
-                <div className="flex items-center gap-4">
-                  {achievement.imageUrl ? (
-                    <img
-                      src={achievement.imageUrl}
-                      alt={achievement.title}
-                      className="h-16 w-16 rounded-2xl object-cover ring-1 ring-slate-700"
-                    />
-                  ) : (
-                    <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-cyan-500/10 text-cyan-300">
-                      <Award size={28} />
+            return (
+              <article
+                key={achievement._id}
+                className="group flex h-full flex-col rounded-3xl border border-slate-800 bg-slate-900/90 p-6 shadow-[0_0_35px_rgba(34,211,238,0.06)] transition hover:-translate-y-1 hover:border-cyan-500/40 hover:shadow-[0_0_40px_rgba(34,211,238,0.12)]"
+              >
+                <div className="flex items-start justify-between gap-4">
+                  <div className="flex items-center gap-4">
+                    {achievement.imageUrl ? (
+                      <img
+                        src={achievement.imageUrl}
+                        alt={achievement.title}
+                        className="h-16 w-16 rounded-2xl object-cover ring-1 ring-slate-700"
+                      />
+                    ) : (
+                      <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-cyan-500/10 text-cyan-300">
+                        <Award size={28} />
+                      </div>
+                    )}
+
+                    <div>
+                      <h3 className="text-xl font-semibold leading-tight text-white">
+                        {achievement.title}
+                      </h3>
+
+                      {achievement.organization && (
+                        <p className="mt-1 text-sm font-medium text-cyan-300">
+                          {achievement.organization}
+                        </p>
+                      )}
+                    </div>
+                  </div>
+
+                  {year && (
+                    <div className="inline-flex items-center gap-2 rounded-full border border-slate-700 px-3 py-1 text-xs text-slate-400">
+                      <CalendarDays size={14} />
+                      {year}
                     </div>
                   )}
-
-                  <div>
-                    <h3 className="text-xl font-semibold leading-tight text-white">
-                      {achievement.title}
-                    </h3>
-
-                    {achievement.organization && (
-                      <p className="mt-1 text-sm font-medium text-cyan-300">
-                        {achievement.organization}
-                      </p>
-                    )}
-                  </div>
                 </div>
 
-                {year && (
-                  <div className="inline-flex items-center gap-2 rounded-full border border-slate-700 px-3 py-1 text-xs text-slate-400">
-                    <CalendarDays size={14} />
-                    {year}
-                  </div>
+                {points.length > 0 && (
+                  <ul className="mt-6 space-y-3 text-sm leading-7 text-slate-300">
+                    {points.map((point) => (
+                      <li key={point} className="flex items-start gap-3">
+                        <span className="mt-2 h-2 w-2 shrink-0 rounded-full bg-cyan-300" />
+                        <span>{point}</span>
+                      </li>
+                    ))}
+                  </ul>
                 )}
-              </div>
 
-              {points.length > 0 && (
-                <ul className="mt-6 space-y-3 text-sm leading-7 text-slate-300">
-                  {points.map((point) => (
-                    <li key={point} className="flex items-start gap-3">
-                      <span className="mt-2 h-2 w-2 shrink-0 rounded-full bg-cyan-300" />
-                      <span>{point}</span>
-                    </li>
-                  ))}
-                </ul>
-              )}
-
-              <div className="mt-auto pt-6">
-                {achievement.credentialUrl ? (
-                  <a
-                    href={achievement.credentialUrl}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="inline-flex items-center gap-2 rounded-xl border border-cyan-500/30 bg-cyan-500/5 px-4 py-2 text-sm font-medium text-cyan-300 transition hover:border-cyan-400 hover:bg-cyan-500/10"
-                  >
-                    <ExternalLink size={16} />
-                    View credential
-                  </a>
-                ) : (
-                  <div className="text-sm text-slate-500">
-                    Achievement highlight
-                  </div>
-                )}
-              </div>
-            </article>
-          );
-        })}
+                <div className="mt-auto pt-6">
+                  {achievement.credentialUrl ? (
+                    <a
+                      href={achievement.credentialUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="inline-flex items-center gap-2 rounded-xl border border-cyan-500/30 bg-cyan-500/5 px-4 py-2 text-sm font-medium text-cyan-300 transition hover:border-cyan-400 hover:bg-cyan-500/10"
+                    >
+                      <ExternalLink size={16} />
+                      View credential
+                    </a>
+                  ) : (
+                    <div className="text-sm text-slate-500">
+                      Achievement highlight
+                    </div>
+                  )}
+                </div>
+              </article>
+            );
+          })}
       </div>
 
       {achievements.length > 3 && (

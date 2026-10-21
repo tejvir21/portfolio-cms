@@ -63,6 +63,8 @@ export default function ProjectForm({
 
       role: defaultValues?.role ?? "",
 
+      display: defaultValues?.display ?? true,
+
       displayOrder: defaultValues?.displayOrder ?? totalProjects,
 
       shortDescription: defaultValues?.shortDescription ?? "",
@@ -601,6 +603,17 @@ export default function ProjectForm({
           className="h-4 w-4 rounded border-slate-700 bg-slate-900"
         />
         Featured Project
+      </label>
+
+      <label className="flex items-center justify-between gap-4 rounded-2xl border border-slate-800 bg-slate-900 px-4 py-3">
+        <div>
+          <p className="font-medium text-white">Display project</p>
+          <p className="text-xs text-slate-500">
+            Only Display project are shown in the public section.
+          </p>
+        </div>
+
+        <input type="checkbox" {...register("display")} className="h-4 w-4" />
       </label>
 
       <button

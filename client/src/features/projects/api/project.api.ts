@@ -38,6 +38,9 @@ export interface CreateProjectInput {
 
   liveUrl?: string;
 
+  display: boolean;
+  displayOrder: number;
+
   featured?: boolean;
 }
 

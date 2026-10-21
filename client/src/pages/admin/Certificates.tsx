@@ -39,6 +39,7 @@ export default function Certificates() {
     credentialId: values.credentialId?.trim() || "",
     credentialUrl: values.credentialUrl?.trim() || "",
     imageUrl: values.imageUrl?.trim() || "",
+    display: values.display,
     featured: Boolean(values.featured),
   });
 
@@ -108,6 +109,7 @@ export default function Certificates() {
               credentialId: editing.credentialId || "",
               credentialUrl: editing.credentialUrl || "",
               imageUrl: editing.imageUrl || "",
+              display: editing.display,
               featured: editing.featured || false,
             }}
             loading={updateMutation.isPending}

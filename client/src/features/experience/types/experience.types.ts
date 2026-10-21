@@ -10,6 +10,7 @@ export interface Experience {
   description?: string;
   technologies: string[];
   companyLogo?: string;
+  display: boolean;
   displayOrder: number;
   createdAt: string;
   updatedAt: string;

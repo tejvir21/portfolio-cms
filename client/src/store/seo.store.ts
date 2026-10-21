@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import api from "@/services/api";
+import { seo } from "@/data/Home.json";
 
 interface SeoData {
   homeTitle: string;
@@ -17,7 +18,7 @@ interface SeoStore {
 }
 
 export const useSeoStore = create<SeoStore>((set) => ({
-  seo: null,
+  seo: seo,
   loading: false,
   error: null,
 

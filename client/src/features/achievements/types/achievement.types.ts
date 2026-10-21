@@ -13,6 +13,8 @@ export interface Achievement {
 
   credentialUrl?: string;
 
+  display: boolean;
+
   displayOrder: number;
 
   createdAt: string;

@@ -24,6 +24,11 @@ const skillSchema = new mongoose.Schema(
       default: 80,
     },
 
+    display: {
+      type: Boolean,
+      default: true,
+    },
+
     displayOrder: {
       type: Number,
       default: 0,

@@ -30,7 +30,7 @@ export default function PageLoader() {
           <div className="absolute inset-8 animate-pulse rounded-full border-2 border-dashed border-cyan-300/40" />
 
           {/* Center Logo */}
-          <div className="relative flex h-20 w-20 items-center justify-center rounded-3xl border border-cyan-400/30 rounded-full bg-slate-900 shadow-[0_0_40px_rgba(34,211,238,0.35)]">
+          <div className="relative flex h-20 w-20 items-center justify-center border border-cyan-400/30 rounded-full bg-slate-900 shadow-[0_0_40px_rgba(34,211,238,0.35)]">
             {/* Replace with your logo */}
             {/* <img
               src="/logo.svg"
@@ -84,11 +84,3 @@ export default function PageLoader() {
     </div>
   );
 }
-
-// export default function PageLoader() {
-//   return (
-//     <div className="flex min-h-screen items-center justify-center bg-slate-950">
-//       <div className="h-12 w-12 animate-spin rounded-full border-4 border-cyan-400 border-t-transparent" />
-//     </div>
-//   );
-// }

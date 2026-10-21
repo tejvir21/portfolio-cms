@@ -24,6 +24,26 @@ export default function SkillTable({ skills, onEdit, onDelete }: Props) {
 
         { key: "skillSequence", title: "Skill Order" },
 
+        {
+          key: "display",
+          title: "Display",
+          render: (row) => (
+            <>
+              {row.display ? (
+                <button
+                  type="button"
+                  className="bg-green-500 h-4 w-4 rounded-full"
+                ></button>
+              ) : (
+                <button
+                  type="button"
+                  className="bg-red-500 h-4 w-4 rounded-full"
+                ></button>
+              )}
+            </>
+          ),
+        },
+
         { key: "displayOrder", title: "Display Order" },
         {
           key: "actions",

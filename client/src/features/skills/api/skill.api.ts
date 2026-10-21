@@ -15,6 +15,7 @@ export interface SkillPayload {
   skillSequence: number;
   icon?: string;
   proficiency: number;
+  display: boolean;
   displayOrder: number;
 }
 
